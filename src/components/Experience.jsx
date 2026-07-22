@@ -1,7 +1,34 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import Reveal from './Reveal';
 import { experience } from '../data';
+
+function LogoMark({ mark }) {
+  const [failed, setFailed] = useState(false);
+
+  if (failed || !mark.domain) {
+    return (
+      <span
+        className="timeline-mark"
+        style={{ '--mark-color': mark.color }}
+        aria-hidden="true"
+      >
+        {mark.text}
+      </span>
+    );
+  }
+
+  return (
+    <span className="timeline-mark timeline-mark-logo" aria-hidden="true">
+      <img
+        src={`https://logo.clearbit.com/${mark.domain}?size=88`}
+        alt=""
+        loading="lazy"
+        onError={() => setFailed(true)}
+      />
+    </span>
+  );
+}
 
 function TimelineItem({ item, index }) {
   const ref = useRef(null);
@@ -9,13 +36,7 @@ function TimelineItem({ item, index }) {
     <Reveal as="div" delay={index * 0.05} className="timeline-item" y={16}>
       <span ref={ref} className="timeline-node" />
       <div className="timeline-item-inner">
-        <span
-          className="timeline-mark"
-          style={{ '--mark-color': item.mark.color }}
-          aria-hidden="true"
-        >
-          {item.mark.text}
-        </span>
+        <LogoMark mark={item.mark} />
         <div className="timeline-item-body">
           <div className="timeline-item-head">
             <div>

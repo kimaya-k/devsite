@@ -35,7 +35,7 @@ export const experience = [
   },
   {
     role: 'Research Assistant',
-    org: 'Tech Justice Lab — LLM Privacy & Profiling',
+    org: 'Tech Justice Lab',
     mark: { text: 'TJ', color: '#3d4f6b' },
     date: 'Nov 2025 — Present',
     tags: ['Privacy Research', 'LLM Agents'],

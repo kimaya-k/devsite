@@ -8,23 +8,34 @@ function TimelineItem({ item, index }) {
   return (
     <Reveal as="div" delay={index * 0.05} className="timeline-item" y={16}>
       <span ref={ref} className="timeline-node" />
-      <div className="timeline-item-head">
-        <div>
-          <span className="timeline-role">{item.role}</span>
-          {' '}
-          <span className="timeline-org">— {item.org}</span>
+      <div className="timeline-item-inner">
+        <span
+          className="timeline-mark"
+          style={{ '--mark-color': item.mark.color }}
+          aria-hidden="true"
+        >
+          {item.mark.text}
+        </span>
+        <div className="timeline-item-body">
+          <div className="timeline-item-head">
+            <div>
+              <span className="timeline-role">{item.role}</span>
+              {' '}
+              <span className="timeline-org">— {item.org}</span>
+            </div>
+            <span className="timeline-date">{item.date}</span>
+          </div>
+          <ul className="timeline-points">
+            {item.points.map((point) => (
+              <li key={point}>{point}</li>
+            ))}
+          </ul>
+          <div className="timeline-tags">
+            {item.tags.map((tag) => (
+              <span className="tag" key={tag}>{tag}</span>
+            ))}
+          </div>
         </div>
-        <span className="timeline-date">{item.date}</span>
-      </div>
-      <ul className="timeline-points">
-        {item.points.map((point) => (
-          <li key={point}>{point}</li>
-        ))}
-      </ul>
-      <div className="timeline-tags">
-        {item.tags.map((tag) => (
-          <span className="tag" key={tag}>{tag}</span>
-        ))}
       </div>
     </Reveal>
   );

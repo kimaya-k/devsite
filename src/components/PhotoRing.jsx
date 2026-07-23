@@ -1,3 +1,4 @@
+import myPhoto from './photo_of_me_copy.jpeg';
 export default function PhotoRing() {
   return (
     <div className="photo-ring-wrap" aria-hidden="true">
@@ -9,7 +10,7 @@ export default function PhotoRing() {
         <circle cx="160" cy="160" r="122" strokeDasharray="4 10" />
       </svg>
       <div className="photo-frame">
-        <img src="C:\Users\imkim\Downloads\devsite\src\components\photo_of_me_copy.jpeg" alt="Kimaya Deshpande" />
+        <img src={myPhoto} alt="Kimaya Deshpande" />
       </div>
     </div>
   );

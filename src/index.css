@@ -1,22 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,opsz,wght@0,5..1200,400;0,5..1200,500;0,5..1200,600;1,5..1200,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 :root {
-  --paper: #f5f1e8;
-  --paper-raised: #fbf8f2;
-  --ink: #211f1a;
-  --ink-soft: #5a564d;
-  --ink-faint: #8b8677;
-  --moss: #3f5138;
-  --moss-soft: #6b7d61;
-  --gold: #b1802f;
-  --line: rgba(33, 31, 26, 0.13);
-  --line-strong: rgba(33, 31, 26, 0.24);
+  --paper: #121110;
+  --paper-raised: #1a1815;
+  --ink: #f2ede0;
+  --ink-soft: #beb6a3;
+  --ink-faint: #847c6b;
+  --moss: #9fc186;
+  --moss-soft: #7fa26a;
+  --gold: #e3b563;
+  --line: rgba(242, 237, 224, 0.12);
+  --line-strong: rgba(242, 237, 224, 0.24);
 
   --display: 'Playfair Display', 'Georgia', serif;
   --body: 'Inter', -apple-system, sans-serif;
   --mono: 'IBM Plex Mono', 'Courier New', monospace;
 
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 * {

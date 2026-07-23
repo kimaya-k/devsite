@@ -55,21 +55,23 @@
 }
 
 /* ===== Hero ===== */
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 8rem 2rem 4rem;
+  position: relative;
+}
+
 .hero-intro {
-  max-width: none;
+  max-width: 880px;
   align-items: center;
   text-align: center;
   padding: 4rem 1.5rem;
-  overflow: hidden;
-}
-
-.particle-field {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  cursor: default;
+  overflow: visible;
 }
 
 .hero-intro-inner {
@@ -78,39 +80,46 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  pointer-events: none;
-}
-
-.hero-intro-inner > * {
-  pointer-events: auto;
 }
 
 .hero-intro-eyebrow {
-  margin-bottom: 1.6rem;
+  margin-bottom: 1.8rem;
 }
 
-.hero-name {
-  font-size: clamp(3.4rem, 12vw, 8.5rem);
-  line-height: 0.94;
-  letter-spacing: -0.015em;
+.hero-headline {
+  font-size: clamp(2.2rem, 6vw, 4.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
   margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0.5rem;
+  row-gap: 0.2rem;
 }
 
-.hero-name-line {
-  display: block;
+.rotating-word {
+  display: inline-flex;
+  overflow: hidden;
+  vertical-align: baseline;
+  height: 1.2em;
+  position: relative;
 }
 
-.hero-name-line-accent {
+.rotating-word-inner {
+  display: inline-block;
   font-style: italic;
   color: var(--moss);
+  white-space: nowrap;
 }
 
-.hero-tagline {
-  margin-top: 1.8rem;
-  font-family: var(--mono);
-  font-size: clamp(0.9rem, 1.6vw, 1.15rem);
+.hero-bio {
+  margin-top: 2rem;
+  max-width: 58ch;
+  font-size: 1.08rem;
+  line-height: 1.65;
   color: var(--ink-soft);
-  letter-spacing: 0.01em;
 }
 
 .hero-intro .hero-actions {
@@ -131,6 +140,9 @@
   }
   .hero-intro .hero-scroll {
     display: none;
+  }
+  .hero-headline {
+    gap: 0.4rem;
   }
 }
 
@@ -688,7 +700,7 @@
   margin-left: -28px;
   margin-top: -28px;
   border-color: var(--moss);
-  background: rgba(63, 81, 56, 0.08);
+  background: rgba(159, 193, 134, 0.12);
 }
 
 .cursor-ring-active {
@@ -703,22 +715,6 @@
   .cursor-ring {
     display: none;
   }
-}
-
-/* ===== Hero blob ===== */
-.hero-blob {
-  position: absolute;
-  top: -10%;
-  right: -8%;
-  width: 46vw;
-  height: 46vw;
-  max-width: 620px;
-  max-height: 620px;
-  background: radial-gradient(circle at 40% 40%, rgba(63, 81, 56, 0.16), rgba(177, 128, 47, 0.08) 55%, transparent 75%);
-  border-radius: 50%;
-  filter: blur(10px);
-  z-index: -1;
-  pointer-events: none;
 }
 
 .hero h1 div {
@@ -806,7 +802,7 @@
 .course-card:hover {
   transform: translateY(-4px);
   border-color: var(--moss);
-  box-shadow: 0 14px 28px -20px rgba(33, 31, 26, 0.35);
+  box-shadow: 0 14px 28px -18px rgba(0, 0, 0, 0.55);
 }
 
 .course-index {

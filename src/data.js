@@ -8,6 +8,18 @@ export const profile = {
   grad: 'May 2027',
 };
 
+export const heroPhrases = [
+  'with AI',
+  'for healthcare',
+  'to protect privacy',
+  'that scale',
+  'to learn',
+  'to explore',
+];
+
+export const heroBio =
+  "I'm Kimaya — I build AI systems that handle the data people actually care about: clinical measures, insurance claims, their own digital footprints. Currently working across Humana and CATME. CS student at Purdue, and almost everything I build runs on AI — I can't help myself.";
+
 export const experience = [
   {
     role: 'Enterprise AI Software Intern',

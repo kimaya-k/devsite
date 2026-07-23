@@ -13,12 +13,22 @@ export default function Hero() {
     <header id="top" className="hero hero-intro" ref={heroRef}>
       <motion.div className="hero-intro-inner" style={{ opacity: fade }}>
         <motion.span
+          className="hero-badge"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.05 }}
+        >
+          <span className="hero-badge-dot" />
+          Open to internships · SWE &amp; AI/ML · '27
+        </motion.span>
+
+        <motion.span
           className="hero-intro-eyebrow eyebrow"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          Software Engineer · Purdue CS '27
+          // kimaya deshpande
         </motion.span>
 
         <motion.h1
@@ -48,6 +58,15 @@ export default function Hero() {
           <Magnetic as="a" href="#projects" className="btn btn-primary">View projects</Magnetic>
           <Magnetic as="a" href="#contact" className="btn btn-ghost">Get in touch</Magnetic>
         </motion.div>
+
+        <motion.p
+          className="hero-aside"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.9 }}
+        >
+          Privacy isn't secrecy — it's who gets to see what, and when.
+        </motion.p>
       </motion.div>
 
       <motion.div className="hero-scroll" style={{ opacity: fade }}>

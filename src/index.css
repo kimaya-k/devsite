@@ -1,20 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,opsz,wght@0,5..1200,400;0,5..1200,500;0,5..1200,600;1,5..1200,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-  --paper: #121110;
-  --paper-raised: #1a1815;
-  --ink: #f2ede0;
-  --ink-soft: #beb6a3;
-  --ink-faint: #847c6b;
-  --moss: #9fc186;
-  --moss-soft: #7fa26a;
-  --gold: #e3b563;
-  --line: rgba(242, 237, 224, 0.12);
-  --line-strong: rgba(242, 237, 224, 0.24);
+  --paper: #0a0c0b;
+  --paper-raised: #131615;
+  --ink: #f2f4f0;
+  --ink-soft: #a6afa6;
+  --ink-faint: #666f68;
+  --signal: #74f2a6;
+  --signal-soft: #4fbf82;
+  --amber: #f5c463;
+  --line: rgba(242, 244, 240, 0.1);
+  --line-strong: rgba(242, 244, 240, 0.22);
 
-  --display: 'Playfair Display', 'Georgia', serif;
+  --display: 'Space Grotesk', 'Helvetica Neue', sans-serif;
   --body: 'Inter', -apple-system, sans-serif;
-  --mono: 'IBM Plex Mono', 'Courier New', monospace;
+  --mono: 'JetBrains Mono', 'Courier New', monospace;
 
   color-scheme: dark;
 }
@@ -74,10 +74,9 @@ button {
 
 .eyebrow {
   font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--moss);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: var(--signal);
 }
 
 .section {
@@ -96,7 +95,8 @@ button {
 .section-head h2 {
   font-size: clamp(1.9rem, 3.4vw, 2.6rem);
   margin-top: 0.6rem;
-  font-style: italic;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .section-head p {
@@ -107,7 +107,7 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--moss);
+  outline: 2px solid var(--signal);
   outline-offset: 3px;
 }
 

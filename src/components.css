@@ -82,8 +82,41 @@
   align-items: center;
 }
 
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.03em;
+  color: var(--ink-soft);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  margin-bottom: 1.1rem;
+}
+
+.hero-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--signal);
+  box-shadow: 0 0 8px 1px var(--signal);
+  display: inline-block;
+}
+
 .hero-intro-eyebrow {
   margin-bottom: 1.8rem;
+  display: block;
+}
+
+.hero-aside {
+  margin-top: 2.4rem;
+  font-family: var(--mono);
+  font-size: 0.86rem;
+  font-style: italic;
+  color: var(--ink-faint);
+  max-width: 46ch;
 }
 
 .hero-headline {
@@ -109,8 +142,9 @@
 
 .rotating-word-inner {
   display: inline-block;
-  font-style: italic;
-  color: var(--moss);
+  font-family: var(--display);
+  font-weight: 600;
+  color: var(--signal);
   white-space: nowrap;
 }
 
@@ -156,7 +190,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--moss);
+  background: var(--signal);
   display: inline-block;
 }
 
@@ -170,7 +204,7 @@
 
 .hero h1 em {
   font-style: italic;
-  color: var(--moss);
+  color: var(--signal);
 }
 
 .hero-sub {
@@ -206,7 +240,7 @@
 }
 
 .btn-primary:hover {
-  background: var(--moss);
+  background: var(--signal);
   transform: translateY(-2px);
 }
 
@@ -216,8 +250,8 @@
 }
 
 .btn-ghost:hover {
-  border-color: var(--moss);
-  color: var(--moss);
+  border-color: var(--signal);
+  color: var(--signal);
   transform: translateY(-2px);
 }
 
@@ -284,15 +318,78 @@
   font-size: 0.98rem;
 }
 
+.about-facts {
+  margin-top: 2rem;
+  padding-top: 1.8rem;
+  border-top: 1px solid var(--line);
+  border-left: none;
+  padding-left: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+}
+
+.about-fact {
+  padding: 0;
+  border-bottom: none;
+}
+
+.about-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.stat-card {
+  padding: 1.5rem 1.6rem;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.stat-card:hover {
+  border-color: var(--signal);
+  transform: translateY(-3px);
+}
+
+.stat-value {
+  font-family: var(--display);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--signal);
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.01em;
+}
+
 @media (max-width: 800px) {
   .about-grid {
     grid-template-columns: 1fr;
   }
   .about-facts {
-    border-left: none;
-    border-top: 1px solid var(--line);
-    padding-left: 0;
-    padding-top: 1.8rem;
+    grid-template-columns: 1fr 1fr;
+  }
+  .about-stats {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .stat-card {
+    flex: 1 1 45%;
+  }
+}
+
+@media (max-width: 520px) {
+  .about-facts {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -318,7 +415,7 @@
   left: 5px;
   top: 8px;
   width: 1px;
-  background: var(--moss);
+  background: var(--signal);
   transform-origin: top;
 }
 
@@ -391,8 +488,8 @@
   width: 11px;
   height: 11px;
   border-radius: 50%;
-  background: var(--moss);
-  border: 1.5px solid var(--moss);
+  background: var(--signal);
+  border: 1.5px solid var(--signal);
   box-shadow: 0 0 0 4px var(--paper);
 }
 
@@ -411,8 +508,8 @@
 }
 
 .timeline-org {
-  color: var(--moss-soft);
-  font-style: italic;
+  color: var(--signal-soft);
+  font-weight: 500;
 }
 
 .timeline-date {
@@ -458,7 +555,7 @@
   font-family: var(--mono);
   font-size: 0.68rem;
   letter-spacing: 0.03em;
-  color: var(--moss);
+  color: var(--signal);
   border: 1px solid var(--line);
   border-radius: 2px;
   padding: 0.22rem 0.55rem;
@@ -485,18 +582,29 @@
 
 .project-heading {
   display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+  align-items: flex-start;
+  gap: 0.9rem;
+}
+
+.project-index {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--signal);
+  padding-top: 0.35rem;
+  flex-shrink: 0;
 }
 
 .project-heading h3 {
   font-size: 1.55rem;
+  font-weight: 600;
 }
 
 .project-tag {
+  display: block;
+  margin-top: 0.4rem;
   font-family: var(--mono);
   font-size: 0.72rem;
-  color: var(--gold);
+  color: var(--amber);
 }
 
 .project-desc {
@@ -577,13 +685,13 @@
 
 .involvement-item h3 {
   font-size: 1.08rem;
-  font-style: italic;
+  font-weight: 600;
 }
 
 .involvement-org {
   font-family: var(--mono);
   font-size: 0.72rem;
-  color: var(--moss);
+  color: var(--signal);
   display: block;
   margin-top: 0.3rem;
 }
@@ -603,7 +711,8 @@
 
 .contact h2 {
   font-size: clamp(2.2rem, 6vw, 3.6rem);
-  font-style: italic;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .contact-email {
@@ -618,8 +727,8 @@
 }
 
 .contact-email:hover {
-  color: var(--moss);
-  border-color: var(--moss);
+  color: var(--signal);
+  border-color: var(--signal);
 }
 
 .footer {
@@ -649,7 +758,7 @@
 }
 
 .footer-links a:hover {
-  color: var(--moss);
+  color: var(--signal);
 }
 
 /* ===== Scroll progress bar ===== */
@@ -659,7 +768,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: var(--moss);
+  background: var(--signal);
   transform-origin: left;
   z-index: 100;
 }
@@ -681,7 +790,7 @@
   margin-left: -3px;
   margin-top: -3px;
   border-radius: 50%;
-  background: var(--moss);
+  background: var(--signal);
 }
 
 .cursor-ring {
@@ -699,7 +808,7 @@
   height: 56px;
   margin-left: -28px;
   margin-top: -28px;
-  border-color: var(--moss);
+  border-color: var(--signal);
   background: rgba(159, 193, 134, 0.12);
 }
 
@@ -721,67 +830,64 @@
   overflow: visible;
 }
 
-/* ===== Marquee (Tech Stack) ===== */
-.tech-section {
-  overflow: hidden;
-}
-
-.marquee {
-  overflow: hidden;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  padding: 1.1rem 0;
-}
-
-.marquee-reverse {
-  border-top: none;
-}
-
-.marquee-track {
+/* ===== Tech Stack — icon grid ===== */
+.tech-groups {
   display: flex;
-  width: max-content;
-  animation: marquee-scroll 32s linear infinite;
+  flex-direction: column;
+  gap: 2.2rem;
 }
 
-.marquee-track-reverse {
-  animation-name: marquee-scroll-reverse;
-  animation-duration: 38s;
-}
-
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
-}
-
-.marquee-item {
-  font-family: var(--display);
-  font-style: italic;
-  font-size: 1.7rem;
-  color: var(--ink);
-  display: flex;
-  align-items: center;
-  gap: 1.6rem;
-  padding: 0 1.6rem;
-  white-space: nowrap;
-}
-
-.marquee-item-ghost {
+.tech-group-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--ink-faint);
-  font-size: 1.3rem;
+  margin-bottom: 1rem;
 }
 
-.marquee-dot {
-  color: var(--moss);
-  font-style: normal;
+.tech-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
 }
 
-@keyframes marquee-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+.tech-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper-raised);
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  transition: border-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
 }
 
-@keyframes marquee-scroll-reverse {
-  from { transform: translateX(-50%); }
-  to { transform: translateX(0); }
+.tech-chip:hover {
+  border-color: var(--signal);
+  color: var(--ink);
+  transform: translateY(-2px);
+}
+
+.tech-chip img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.tech-chip-text {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+}
+
+@media (max-width: 640px) {
+  .tech-chip {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.84rem;
+  }
 }
 
 /* ===== Courses ===== */
@@ -801,21 +907,21 @@
 
 .course-card:hover {
   transform: translateY(-4px);
-  border-color: var(--moss);
+  border-color: var(--signal);
   box-shadow: 0 14px 28px -18px rgba(0, 0, 0, 0.55);
 }
 
 .course-index {
   font-family: var(--mono);
   font-size: 0.75rem;
-  color: var(--gold);
+  color: var(--amber);
   display: block;
   margin-bottom: 0.7rem;
 }
 
 .course-card h3 {
   font-size: 1.12rem;
-  font-style: italic;
+  font-weight: 600;
   line-height: 1.3;
 }
 

@@ -2,11 +2,17 @@ export const profile = {
   name: 'Kimaya Deshpande',
   location: 'Atlanta, GA',
   email: 'deshpank@purdue.edu',
-  github: 'https://github.com/deshpank',
+  github: 'https://github.com/kimaya-k',
   linkedin: 'https://www.linkedin.com/in/kimaya-deshpande-026452253/',
   school: 'Purdue University',
   grad: 'May 2027',
 };
+
+export const stats = [
+  { value: '2027', label: 'Grad Year — Purdue CS' },
+  { value: '5', label: 'Internships & Research Roles' },
+  { value: '2×', label: 'Hackathon Podium Finishes' },
+];
 
 export const heroPhrases = [
   'with AI',

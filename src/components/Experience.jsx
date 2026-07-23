@@ -1,31 +1,16 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import Reveal from './Reveal';
 import { experience } from '../data';
 
 function LogoMark({ mark }) {
-  const [failed, setFailed] = useState(false);
-
-  if (failed || !mark.domain) {
-    return (
-      <span
-        className="timeline-mark"
-        style={{ '--mark-color': mark.color }}
-        aria-hidden="true"
-      >
-        {mark.text}
-      </span>
-    );
-  }
-
   return (
-    <span className="timeline-mark timeline-mark-logo" aria-hidden="true">
-      <img
-        src={`https://logo.clearbit.com/${mark.domain}?size=88`}
-        alt=""
-        loading="lazy"
-        onError={() => setFailed(true)}
-      />
+    <span
+      className="timeline-mark"
+      style={{ '--mark-color': mark.color }}
+      aria-hidden="true"
+    >
+      {mark.text}
     </span>
   );
 }
@@ -73,7 +58,7 @@ export default function Experience() {
   return (
     <section id="experience" className="section">
       <Reveal className="section-head">
-        <span className="eyebrow">Experience</span>
+        <span className="eyebrow">// experience</span>
         <h2>A pipeline, in reverse chronology.</h2>
         <p>Five roles, one thread: agents and pipelines built to handle data that matters.</p>
       </Reveal>

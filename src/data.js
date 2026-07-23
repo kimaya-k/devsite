@@ -29,7 +29,7 @@ export const heroPhrases = [
 ];
 
 export const heroBio =
-  "Hi! I'm Kimaya, a CS student and Jandos Scholar at Purdue, currently working at Humana and CATME.  I like building software, web applications, and AI systems that have a real impact on the community through healthcare, education, and privacy. Off the clock I'm watching F1 or eating cake.";
+  "Hi! I'm Kimaya, a CS student and Jandos Scholar at Purdue, currently working at Humana and CATME. I like building software, web applications, and AI systems that have a real impact on the community through healthcare, education, and privacy. Off the clock I'm watching F1 or eating cake.";
 
   export const experience = [
   {

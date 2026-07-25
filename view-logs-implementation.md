@@ -18,22 +18,22 @@
             VALUES (?, ?, ?::json, NOW(), ?)
         ], undef, $userid, 'deleted_activity', $json_data, 2);
     ```
-    It gets stored in event_log table and on the `view_logs` page in the UI. 
+    The log is stored in `event_log` table and visible at the `view_logs` page in the UI. 
 
-2) Update the list of logs that are tracked. At the top of `view_logs` UI for each of faculty, student and admin, the list of logs includes all the logs that are currently being tracked, so that will need to be updated if a new log is added. Eg: this is where the list is for admin - <br>
-`<b>Admin logs include:</b> login, login_as, profile_changed, instructor_request_activated, instructor_request_deleted.`
+2) Update the list of logs that are tracked in the `view_logs` file. At the top of `view_logs` UI for each of faculty, student and admin, the list of logs includes all the logs that are currently being tracked, so that will need to be updated if a new log is added. Eg: the list is for student - <br>
+`<b>Student logs include:</b> login, activity_started, activity_finished, profile_changed.`
 
 ## Notes:
-1) Add the following import to store json metadata for the log.
+1) Add the following import to store json metadata for the log: <br>
 `use JSON qw(encode_json);`
 
 2) If any new details are added as json metadata apart from the below mentioned, ensure to update the `@display_keys` in `view_logs` file:
-    <br>faculty display_keys: course, class, activity, student_name, deadline
-    <br>student display_keys: course, class, activity, student_name, deadline
-    <br>admin display_keys: course, class, activity, student_name, person_name, person_type, email, institution, stud_id, role
+    <br>**faculty display_keys**: course, class, activity, student_name, deadline
+    <br>**student display_keys**: course, class, activity, student_name, deadline
+    <br>**admin display_keys**: course, class, activity, student_name, person_name, person_type, email, institution, stud_id, role
 
 3) Add the log code to the relevant action, for example in this if condition:<br>
-    `elsif ($action eq 'Delete Activity') {`
+    `elsif ($action eq 'Delete Activity') {` <br>
     To be able to track log for clicking 'Delete Activity'.
 
 ## Explanation:

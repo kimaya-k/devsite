@@ -17,10 +17,10 @@
             INSERT INTO event_log (person_id, event_type, event_data, inserted_on, role_id)
             VALUES (?, ?, ?::json, NOW(), ?)
         ], undef, $userid, 'deleted_activity', $json_data, 2);
-
+    ```
     It gets stored in event_log table and on the `view_logs` page in the UI. 
 
-2) Update the list of logs that are tracked. At the top of `view_logs` UI for each of faculty, student and admin, the list of logs includes all the logs that are currently being tracked, so that will need to be updated if a new log is added. Eg: this is where the list is for admin -
+2) Update the list of logs that are tracked. At the top of `view_logs` UI for each of faculty, student and admin, the list of logs includes all the logs that are currently being tracked, so that will need to be updated if a new log is added. Eg: this is where the list is for admin - <br>
 `<b>Admin logs include:</b> login, login_as, profile_changed, instructor_request_activated, instructor_request_deleted.`
 
 ## Notes:
@@ -28,11 +28,11 @@
 `use JSON qw(encode_json);`
 
 2) If any new details are added as json metadata apart from the below mentioned, ensure to update the `@display_keys` in `view_logs` file:
-    faculty display_keys: course, class, activity, student_name, deadline
-    student display_keys: course, class, activity, student_name, deadline
-    admin display_keys: course, class, activity, student_name, person_name, person_type, email, institution, stud_id, role
+    <br>faculty display_keys: course, class, activity, student_name, deadline
+    <br>student display_keys: course, class, activity, student_name, deadline
+    <br>admin display_keys: course, class, activity, student_name, person_name, person_type, email, institution, stud_id, role
 
-3) Add the log code to the relevant action, for example in this if condition:
+3) Add the log code to the relevant action, for example in this if condition:<br>
     `elsif ($action eq 'Delete Activity') {`
     To be able to track log for clicking 'Delete Activity'.
 
@@ -46,6 +46,7 @@ a) Fetching required details
         JOIN class c ON s.class_id = c.class_id
         WHERE s.survey_id = ?
     ], undef, $survey_id);
+```
 
 This is used to fetch the additional required details needed for the log which were not already fetched in the code. In this case, we are fetching activity name (`$act_name`), class name (`$cls_name`), and class id (`$class_id`).
 
@@ -57,14 +58,14 @@ b) Collating metadata in `$json_data`:
         class_id    => $class_id,
         survey_id   => $survey_id
     });
-
-NOTE: ensure to add this at the top of the file to store the metadata as json fields:
+```
+NOTE: ensure to add this at the top of the file to store the metadata as json fields:<br>
 `use JSON qw(encode_json);`
 
 Here, we store all the relevant details to the log in `$json_data`. Since the log here is deleted_activity, we are storing the class name, activity name, class id, and survey id. survey_id is already fetched and used in code earlier in the file, so we do not need to fetch it again in the previous step and can store it directly here.
 
-To save IP address to add to the metadata, use this line:
-my $ip = eval { $r->connection->remote_ip } || $ENV{'REMOTE_ADDR'} || '0.0.0.0';
+To save IP address to add to the metadata, use this line:<br>
+`my $ip = eval { $r->connection->remote_ip } || $ENV{'REMOTE_ADDR'} || '0.0.0.0';`
 
 c) Logging it into event_log table:
 ```perl
@@ -72,6 +73,7 @@ $dbh->do(q[
         INSERT INTO event_log (person_id, event_type, event_data, inserted_on, role_id)
         VALUES (?, ?, ?::json, NOW(), ?)
     ], undef, $userid, 'deleted_activity', $json_data, 2);
+```
 
 Here we add the log to the table. All logs are stored by the role of the person causing the event. We log by:
 - `person_id` (unique id for each person from person table)

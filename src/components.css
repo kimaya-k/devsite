@@ -148,7 +148,7 @@
 .typing-word-text {
   font-family: var(--display);
   font-weight: 800;
-  color: var(--signal);
+  color: rgb(164, 94, 229);
   text-shadow:
     0 0 10px rgb(164, 94, 229),
     0 0 26px rgb(190, 148, 212),

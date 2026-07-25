@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 
 const LAYERS = [
-  { count: 70, minR: 0.6, maxR: 1.2, speed: 0.07, parallax: 6, glow: 3, alpha: [0.2, 0.45] },
-  { count: 45, minR: 1.0, maxR: 1.9, speed: 0.13, parallax: 16, glow: 7, alpha: [0.35, 0.65] },
-  { count: 24, minR: 1.7, maxR: 2.8, speed: 0.2, parallax: 30, glow: 13, alpha: [0.5, 0.9] },
+  { count: 90, minR: 0.6, maxR: 1.2, speed: 0.05, parallax: 10, glow: 3, alpha: [0.2, 0.45] },
+  { count: 55, minR: 1.0, maxR: 1.9, speed: 0.09, parallax: 22, glow: 7, alpha: [0.35, 0.65] },
+  { count: 28, minR: 1.7, maxR: 2.8, speed: 0.14, parallax: 38, glow: 13, alpha: [0.5, 0.9] },
 ];
 
 export default function ParticleField() {
@@ -18,16 +18,18 @@ export default function ParticleField() {
     let layers = [];
     let raf;
     let t = 0;
-    const mouse = { x: 0, y: 0, nx: 0, ny: 0, active: false };
+    let rotation = 0;
+    let spinVelocity = 0.0006; // gentle constant drift
+    const mouse = { x: 0, y: 0, nx: 0, ny: 0, lastX: 0, active: false };
 
-    const inkColor = '33, 31, 26';
-    const mossColor = '63, 81, 56';
-    const goldColor = '177, 128, 47';
+    const signalColor = '116, 242, 166';
+    const amberColor = '245, 196, 99';
+    const inkColor = '242, 244, 240';
 
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
-      width = canvas.parentElement.offsetWidth;
-      height = canvas.parentElement.offsetHeight;
+      width = window.innerWidth;
+      height = window.innerHeight;
       canvas.width = width * dpr;
       canvas.height = height * dpr;
       canvas.style.width = `${width}px`;
@@ -35,12 +37,13 @@ export default function ParticleField() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       mouse.x = width / 2;
       mouse.y = height / 2;
+      mouse.lastX = mouse.x;
 
       layers = LAYERS.map((cfg) => ({
         cfg,
         stars: Array.from({ length: cfg.count }, () => {
           const roll = Math.random();
-          const color = roll < 0.1 ? mossColor : roll < 0.16 ? goldColor : inkColor;
+          const color = roll < 0.14 ? signalColor : roll < 0.22 ? amberColor : inkColor;
           return {
             x: Math.random() * width,
             y: Math.random() * height,
@@ -57,9 +60,8 @@ export default function ParticleField() {
     }
 
     function onMove(e) {
-      const rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
       mouse.nx = (mouse.x / width) * 2 - 1;
       mouse.ny = (mouse.y / height) * 2 - 1;
       mouse.active = true;
@@ -71,12 +73,24 @@ export default function ParticleField() {
 
     function step() {
       t += 0.016;
+
+      // cursor drag nudges the spin direction/speed; otherwise settles to a gentle drift
+      const dx = mouse.x - mouse.lastX;
+      mouse.lastX = mouse.x;
+      const targetVelocity = 0.0006 + dx * 0.00018;
+      spinVelocity += (targetVelocity - spinVelocity) * 0.04;
+      rotation += spinVelocity;
+
       ctx.clearRect(0, 0, width, height);
+      ctx.save();
+      ctx.translate(width / 2, height / 2);
+      ctx.rotate(rotation);
+      ctx.translate(-width / 2, -height / 2);
 
       layers.forEach((layer) => {
         const { cfg, stars } = layer;
-        const parX = mouse.active ? -mouse.nx * cfg.parallax : 0;
-        const parY = mouse.active ? -mouse.ny * cfg.parallax : 0;
+        const parX = mouse.active ? mouse.nx * cfg.parallax : 0;
+        const parY = mouse.active ? mouse.ny * cfg.parallax : 0;
 
         stars.forEach((s) => {
           s.x += s.vx;
@@ -100,15 +114,16 @@ export default function ParticleField() {
         });
       });
       ctx.shadowBlur = 0;
+      ctx.restore();
 
       raf = requestAnimationFrame(step);
     }
 
     resize();
     window.addEventListener('resize', resize);
-    canvas.parentElement.addEventListener('mousemove', onMove);
-    canvas.parentElement.addEventListener('mouseleave', onLeave);
-    canvas.parentElement.addEventListener('touchmove', (e) => {
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseleave', onLeave);
+    window.addEventListener('touchmove', (e) => {
       if (e.touches[0]) onMove(e.touches[0]);
     }, { passive: true });
 
@@ -121,8 +136,8 @@ export default function ParticleField() {
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener('resize', resize);
-      canvas.parentElement.removeEventListener('mousemove', onMove);
-      canvas.parentElement.removeEventListener('mouseleave', onLeave);
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseleave', onLeave);
     };
   }, []);
 

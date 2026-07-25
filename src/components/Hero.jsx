@@ -21,7 +21,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.05 }}
           >
             <span className="hero-badge-dot" />
-            KIMAYA DESHPANDE · SWE + CS + AI/ML · '27
+            Open to internships · SWE &amp; AI/ML · '27
           </motion.span>
 
           <motion.span
@@ -30,6 +30,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
+            // kimaya deshpande
           </motion.span>
 
           <motion.h1
@@ -40,7 +41,7 @@ export default function Hero() {
           >
             Building things
             <span className="hero-headline-line2">
-            <TypingWord words={heroPhrases} />
+              for <TypingWord words={heroPhrases} />
             </span>
           </motion.h1>
 
@@ -69,6 +70,7 @@ export default function Hero() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.9 }}
           >
+            Privacy isn't secrecy — it's who gets to see what, and when.
           </motion.p>
         </div>
 

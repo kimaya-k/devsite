@@ -148,11 +148,11 @@
 .typing-word-text {
   font-family: var(--display);
   font-weight: 800;
-  color: rgb(164, 94, 229);
+  color: var(--signal);
   text-shadow:
-    0 0 10px rgb(164, 94, 229),
-    0 0 26px rgb(190, 148, 212),
-    0 0 52px rgb(113, 1, 148);
+    0 0 10px rgba(116, 242, 166, 0.55),
+    0 0 26px rgba(116, 242, 166, 0.35),
+    0 0 52px rgba(116, 242, 166, 0.18);
   white-space: pre;
 }
 
@@ -225,7 +225,7 @@
   stroke: var(--signal) !important;
   stroke-width: 1.6 !important;
   stroke-dasharray: 6 94;
-  filter: drop-shadow(0 0 6px rgb(164, 94, 229));
+  filter: drop-shadow(0 0 6px rgba(116, 242, 166, 0.6));
 }
 
 .photo-ring-outer {

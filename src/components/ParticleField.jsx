@@ -20,10 +20,10 @@ export default function ParticleField() {
     let t = 0;
     let rotation = 0;
     let spinVelocity = 0.0035; // visible constant drift (~full rotation every ~18s)
-    const mouse = { x: 0, y: 0, nx: 0, ny: 0, lastX: 0, active: false };
+    const mouse = { x: 0, y: 0, nx: 0, ny: 0, active: false };
 
-    const signalColor = '116, 242, 166';
-    const amberColor = '245, 196, 99';
+    const signalColor = '181, 140, 245';
+    const amberColor = '226, 184, 255';
     const inkColor = '242, 244, 240';
 
     function resize() {
@@ -37,7 +37,6 @@ export default function ParticleField() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       mouse.x = width / 2;
       mouse.y = height / 2;
-      mouse.lastX = mouse.x;
 
       layers = LAYERS.map((cfg) => ({
         cfg,
@@ -71,14 +70,17 @@ export default function ParticleField() {
       mouse.active = false;
     }
 
+    const BASE_SPIN = 0.0055; // max speed at far left/right of screen
+    const IDLE_SPIN = 0.0018; // gentle drift when cursor isn't on the page
+
     function step() {
       t += 0.016;
 
-      // cursor drag nudges the spin direction/speed; otherwise settles to a gentle drift
-      const dx = mouse.x - mouse.lastX;
-      mouse.lastX = mouse.x;
-      const targetVelocity = 0.0035 + dx * 0.0009;
-      spinVelocity += (targetVelocity - spinVelocity) * 0.06;
+      // Spin direction/speed follows cursor position smoothly: left half of the
+      // screen spins one way, right half the other, easing continuously so quick
+      // movements steer the field rather than jolting it.
+      const target = mouse.active ? BASE_SPIN * mouse.nx : IDLE_SPIN;
+      spinVelocity += (target - spinVelocity) * 0.025;
       rotation += spinVelocity;
 
       ctx.clearRect(0, 0, width, height);

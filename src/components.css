@@ -150,9 +150,9 @@
   font-weight: 800;
   color: var(--signal);
   text-shadow:
-    0 0 10px rgba(116, 242, 166, 0.55),
-    0 0 26px rgba(116, 242, 166, 0.35),
-    0 0 52px rgba(116, 242, 166, 0.18);
+    0 0 10px rgba(181, 140, 245, 0.55),
+    0 0 26px rgba(181, 140, 245, 0.35),
+    0 0 52px rgba(181, 140, 245, 0.18);
   white-space: pre;
 }
 
@@ -225,7 +225,7 @@
   stroke: var(--signal) !important;
   stroke-width: 1.6 !important;
   stroke-dasharray: 6 94;
-  filter: drop-shadow(0 0 6px rgba(116, 242, 166, 0.6));
+  filter: drop-shadow(0 0 6px rgba(181, 140, 245, 0.6));
 }
 
 .photo-ring-outer {
@@ -250,7 +250,7 @@
   position: absolute;
   inset: 15%;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, rgba(116, 242, 166, 0.12), var(--paper-raised) 70%);
+  background: radial-gradient(circle at 35% 30%, rgba(181, 140, 245, 0.12), var(--paper-raised) 70%);
   border: 2px dashed var(--line-strong);
   display: flex;
   flex-direction: column;
@@ -258,7 +258,7 @@
   justify-content: center;
   gap: 0.5rem;
   overflow: hidden;
-  box-shadow: 0 0 0 1px var(--paper), 0 0 40px rgba(116, 242, 166, 0.08) inset;
+  box-shadow: 0 0 0 1px var(--paper), 0 0 40px rgba(181, 140, 245, 0.08) inset;
 }
 
 .photo-frame img {

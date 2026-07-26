@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 
 const LAYERS = [
-  { count: 90, minR: 0.6, maxR: 1.2, speed: 0.05, parallax: 10, glow: 3, alpha: [0.2, 0.45] },
-  { count: 55, minR: 1.0, maxR: 1.9, speed: 0.09, parallax: 22, glow: 7, alpha: [0.35, 0.65] },
-  { count: 28, minR: 1.7, maxR: 2.8, speed: 0.14, parallax: 38, glow: 13, alpha: [0.5, 0.9] },
+  { count: 90, minR: 0.6, maxR: 1.2, speed: 0.05, parallax: 20, glow: 3, alpha: [0.2, 0.45] },
+  { count: 55, minR: 1.0, maxR: 1.9, speed: 0.09, parallax: 42, glow: 7, alpha: [0.35, 0.65] },
+  { count: 28, minR: 1.7, maxR: 2.8, speed: 0.14, parallax: 70, glow: 13, alpha: [0.5, 0.9] },
 ];
 
 export default function ParticleField() {
@@ -19,7 +19,7 @@ export default function ParticleField() {
     let raf;
     let t = 0;
     let rotation = 0;
-    let spinVelocity = 0.0006; // gentle constant drift
+    let spinVelocity = 0.0035; // visible constant drift (~full rotation every ~18s)
     const mouse = { x: 0, y: 0, nx: 0, ny: 0, lastX: 0, active: false };
 
     const signalColor = '116, 242, 166';
@@ -77,8 +77,8 @@ export default function ParticleField() {
       // cursor drag nudges the spin direction/speed; otherwise settles to a gentle drift
       const dx = mouse.x - mouse.lastX;
       mouse.lastX = mouse.x;
-      const targetVelocity = 0.0006 + dx * 0.00018;
-      spinVelocity += (targetVelocity - spinVelocity) * 0.04;
+      const targetVelocity = 0.0035 + dx * 0.0009;
+      spinVelocity += (targetVelocity - spinVelocity) * 0.06;
       rotation += spinVelocity;
 
       ctx.clearRect(0, 0, width, height);

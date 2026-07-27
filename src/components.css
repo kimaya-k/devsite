@@ -172,43 +172,44 @@
   color: var(--ink-soft);
 }
 
-.ring-stage {
+.ring-wrap {
   position: relative;
-  width: 220px;
-  height: 220px;
-  margin: 0 auto;
+  width: min(560px, 88vw);
+  height: min(560px, 88vw);
+  margin: 2rem auto 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.audio-ring-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+.ring-wrap-content {
+  position: relative;
+  z-index: 1;
+  width: 74%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+  text-align: center;
+}
+
+.hero-headline-ring {
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  line-height: 1.15;
+  margin: 0;
+}
+
+.ring-photo-wrap {
+  width: clamp(110px, 26vw, 170px);
+  height: clamp(110px, 26vw, 170px);
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(196, 165, 250, 0.35);
 }
 
 .ring-play-btn {
-  position: relative;
-  z-index: 1;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink);
-  background: rgba(244, 238, 250, 0.08);
-  border: 1px solid rgba(244, 238, 250, 0.28);
-  border-radius: 999px;
-  padding: 0.5rem 1.3rem;
-  cursor: pointer;
-  transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
-}
-
-.ring-play-btn:hover {
-  border-color: #f472b6;
-  background: rgba(244, 114, 182, 0.14);
-  transform: translateY(-1px);
+  display: block;
+  margin: 0 auto;
 }
 
 /* ===== Photo ring — now sits directly beneath the heading ===== */

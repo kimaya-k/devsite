@@ -172,6 +172,45 @@
   color: var(--ink-soft);
 }
 
+.ring-stage {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.audio-ring-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ring-play-btn {
+  position: relative;
+  z-index: 1;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: rgba(244, 238, 250, 0.08);
+  border: 1px solid rgba(244, 238, 250, 0.28);
+  border-radius: 999px;
+  padding: 0.5rem 1.3rem;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+}
+
+.ring-play-btn:hover {
+  border-color: #f472b6;
+  background: rgba(244, 114, 182, 0.14);
+  transform: translateY(-1px);
+}
+
 /* ===== Photo ring — now sits directly beneath the heading ===== */
 .hero-photo {
   margin-top: 2.4rem;

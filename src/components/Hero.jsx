@@ -4,6 +4,8 @@ import Magnetic from './Magnetic';
 import TypingWord from './TypingWord';
 import PhotoRing from './PhotoRing';
 import { heroPhrases, heroBio } from '../data';
+import AudioRing from './AudioRing';
+import { useSong } from '../audio/useSong';
 
 export default function Hero() {
   const heroRef = useRef(null);
@@ -35,6 +37,13 @@ export default function Hero() {
           <PhotoRing />
         </motion.div>
 
+        <div className="ring-stage">
+        <AudioRing getLevels={getLevels} isPlaying={isPlaying} size={220} />
+        <button type="button" className="ring-play-btn" onClick={toggle} data-cursor-hover>
+          {isPlaying ? 'Stop' : 'Play'}
+        </button>
+      </div>
+
         <motion.p
           className="hero-bio"
           initial={{ opacity: 0, y: 16 }}
@@ -60,7 +69,8 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.9 }}
         >
-          Privacy isn't secrecy — it's who gets to see what, and when.
+
+          const { isPlaying, toggle, getLevels } = useSong();
         </motion.p>
       </motion.div>
     </header>

@@ -29,7 +29,7 @@ function colorAt(t) {
   return `rgb(${last[0]}, ${last[1]}, ${last[2]})`;
 }
 
-export default function AudioRing({ getLevels, isPlaying, size = 340 }) {
+export default function AudioRing({ getLevels, isPlaying, size = 220 }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {

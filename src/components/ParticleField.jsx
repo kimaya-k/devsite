@@ -20,6 +20,7 @@ export default function ParticleField() {
     let t = 0;
     let rotation = 0;
     let spinVelocity = 0.0035; // visible constant drift (~full rotation every ~18s)
+    let fieldRadius;
     const mouse = { x: 0, y: 0, nx: 0, ny: 0, active: false };
 
     const signalColor = '181, 140, 245';
@@ -38,14 +39,23 @@ export default function ParticleField() {
       mouse.x = width / 2;
       mouse.y = height / 2;
 
+      // The field is rotated as a whole, so it needs to be a full circle
+      // covering the viewport's diagonal (plus a buffer for the parallax
+      // shift) — a rotated rectangle would leave the screen corners empty
+      // at certain angles, which is what caused the "river" look.
+      const maxParallax = Math.max(...LAYERS.map((cfg) => cfg.parallax));
+      fieldRadius = Math.hypot(width, height) / 2 + maxParallax + 40;
+
       layers = LAYERS.map((cfg) => ({
         cfg,
-        stars: Array.from({ length: cfg.count }, () => {
+        stars: Array.from({ length: Math.round(cfg.count * (fieldRadius ** 2) / ((width / 2) ** 2 + (height / 2) ** 2)) }, () => {
           const roll = Math.random();
           const color = roll < 0.14 ? signalColor : roll < 0.22 ? amberColor : inkColor;
+          const angle = Math.random() * Math.PI * 2;
+          const dist = fieldRadius * Math.sqrt(Math.random());
           return {
-            x: Math.random() * width,
-            y: Math.random() * height,
+            x: width / 2 + Math.cos(angle) * dist,
+            y: height / 2 + Math.sin(angle) * dist,
             r: cfg.minR + Math.random() * (cfg.maxR - cfg.minR),
             vx: (Math.random() - 0.5) * cfg.speed,
             vy: (Math.random() - 0.5) * cfg.speed,
@@ -102,10 +112,13 @@ export default function ParticleField() {
         stars.forEach((s) => {
           s.x += s.vx;
           s.y += s.vy;
-          if (s.x < -20) s.x = width + 20;
-          if (s.x > width + 20) s.x = -20;
-          if (s.y < -20) s.y = height + 20;
-          if (s.y > height + 20) s.y = -20;
+          const dx = s.x - width / 2;
+          const dy = s.y - height / 2;
+          if (dx * dx + dy * dy > fieldRadius * fieldRadius) {
+            // Re-enter from the opposite side of the circular field
+            s.x = width / 2 - dx;
+            s.y = height / 2 - dy;
+          }
 
           const twinkle = 0.55 + 0.45 * Math.sin(t * s.twinkleSpeed + s.phase);
           const alpha = s.baseAlpha * twinkle;

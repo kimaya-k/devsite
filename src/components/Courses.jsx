@@ -5,7 +5,7 @@ export default function Courses() {
   return (
     <section id="courses" className="section">
       <Reveal className="section-head">
-        <span className="eyebrow">// courses</span>
+        <span className="eyebrow">Coursework</span>
         <h2>What I've studied.</h2>
       </Reveal>
 

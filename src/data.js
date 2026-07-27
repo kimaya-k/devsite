@@ -2,28 +2,23 @@ export const profile = {
   name: 'Kimaya Deshpande',
   location: 'Atlanta, GA',
   email: 'deshpank@purdue.edu',
-  github: 'https://github.com/kimaya-k',
+  github: 'https://github.com/deshpank',
   linkedin: 'https://www.linkedin.com/in/kimaya-deshpande-026452253/',
   school: 'Purdue University',
   grad: 'May 2027',
 };
 
-export const stats = [
-  { value: '2027', label: 'Grad Year — Purdue CS' },
-  { value: '5', label: 'Internships & Research Roles' },
-  { value: '2×', label: 'Hackathon Podium Finishes' },
-];
-
 export const heroPhrases = [
-  'healthcare.',
-  "people's privacy.",
-  'production.',
-  'scale.',
-  'the edge cases.',
+  'with AI',
+  'for healthcare',
+  'to protect privacy',
+  'that scale',
+  'to learn',
+  'to explore',
 ];
 
 export const heroBio =
-  "I'm Kimaya, a CS student at Purdue and a Jandos Scholarship recipient in the Women in Science Program. Right now I'm researching LLM privacy risks and working at Humana and CATME. I like to build software, web applications, and AI systems that have a real impact on the community through healthcare, education, and privacy. Off the clock I'm watching F1 or eating cake.";
+  "I'm Kimaya — I build AI systems that handle the data people actually care about: clinical measures, insurance claims, their own digital footprints. Currently working across Humana and CATME. CS student at Purdue, and almost everything I build runs on AI — I can't help myself.";
 
 export const experience = [
   {

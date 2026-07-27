@@ -5,7 +5,7 @@ export default function Contact() {
   return (
     <>
       <section id="contact" className="section contact">
-        <Reveal className="eyebrow">// contact</Reveal>
+        <Reveal className="eyebrow">Contact</Reveal>
         <Reveal delay={0.1}>
           <h2>Let's build something that matters.</h2>
         </Reveal>

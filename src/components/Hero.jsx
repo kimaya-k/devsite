@@ -32,14 +32,14 @@ export default function Hero() {
             </span>
           </motion.h1>
 
-          <motion.div
-            className="hero-photo"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+          <motion.p
+          className="hero-bio"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: 'easeOut', delay: 0.5 }}
           >
-            <PhotoRing />
-          </motion.div>
+          {heroBio}
+          </motion.p>
         </div>
       </div>
 
@@ -47,14 +47,14 @@ export default function Hero() {
         {isPlaying ? 'Stop' : 'Play'}
       </button>
 
-      <motion.p
-        className="hero-bio"
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: 'easeOut', delay: 0.5 }}
-      >
-        {heroBio}
-      </motion.p>
+      <motion.div
+            className="hero-photo"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+          >
+            <PhotoRing />
+          </motion.div>
 
       <motion.div
         className="hero-actions"

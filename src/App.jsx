@@ -1,9 +1,10 @@
 import './components.css';
 import ScrollProgress from './components/ScrollProgress';
 import CustomCursor from './components/CustomCursor';
+import ParticleField from './components/ParticleField';
 import Nav from './components/Nav';
 import Hero from './components/Hero';
-import About from './components/About';
+// import About from './components/About'; // re-add when ready
 import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Volunteering from './components/Volunteering';
@@ -14,11 +15,12 @@ import Contact from './components/Contact';
 export default function App() {
   return (
     <>
+      <ParticleField />
       <ScrollProgress />
       <CustomCursor />
       <Nav />
       <Hero />
-      <About />
+      {/* <About /> */}
       <Experience />
       <Projects />
       <Volunteering />

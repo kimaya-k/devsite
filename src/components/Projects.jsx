@@ -31,8 +31,11 @@ function ProjectCard({ project, index }) {
         data-cursor-hover
       >
         <div className="project-heading">
-          <h3>{project.name}</h3>
-          <span className="project-tag">{project.tag}</span>
+          <span className="project-index">{String(index + 1).padStart(2, '0')}</span>
+          <div>
+            <h3>{project.name}</h3>
+            <span className="project-tag">{project.tag}</span>
+          </div>
         </div>
         <p className="project-desc">{project.description}</p>
         <div className="project-meta">
@@ -52,7 +55,7 @@ export default function Projects() {
   return (
     <section id="projects" className="section">
       <Reveal className="section-head">
-        <span className="eyebrow">Projects</span>
+        <span className="eyebrow">// projects</span>
         <h2>Things I've shipped and broken on purpose.</h2>
       </Reveal>
 

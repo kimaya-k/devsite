@@ -13,24 +13,6 @@ export default function Hero() {
   return (
     <header id="top" className="hero hero-centered" ref={heroRef}>
       <motion.div className="hero-centered-inner" style={{ opacity: fade }}>
-        <motion.span
-          className="hero-badge"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.05 }}
-        >
-          <span className="hero-badge-dot" />
-          Open to internships · SWE &amp; AI/ML · '27
-        </motion.span>
-
-        <motion.span
-          className="hero-intro-eyebrow eyebrow"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-        >
-          // kimaya deshpande
-        </motion.span>
 
         <motion.h1
           className="hero-headline"

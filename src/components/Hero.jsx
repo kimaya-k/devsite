@@ -11,6 +11,7 @@ export default function Hero() {
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
   const fade = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
+  const { isPlaying, toggle, getLevels } = useSong();
 
   return (
     <header id="top" className="hero hero-centered" ref={heroRef}>
@@ -70,7 +71,6 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.9 }}
         >
 
-          const { isPlaying, toggle, getLevels } = useSong();
         </motion.p>
       </motion.div>
     </header>

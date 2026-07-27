@@ -12,8 +12,8 @@ export default function Hero() {
 
   return (
     <header id="top" className="hero hero-centered" ref={heroRef}>
-      <motion.div className="hero-centered-inner" style={{ opacity: fade }}>
-
+      <motion.div className="hero-centered-inner" style={{ opacity: fade }}
+      >
         <motion.h1
           className="hero-headline"
           initial={{ opacity: 0, y: 20 }}

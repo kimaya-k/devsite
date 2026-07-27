@@ -84,15 +84,20 @@ export default function ParticleField() {
       rotation += spinVelocity;
 
       ctx.clearRect(0, 0, width, height);
-      ctx.save();
-      ctx.translate(width / 2, height / 2);
-      ctx.rotate(rotation);
-      ctx.translate(-width / 2, -height / 2);
 
       layers.forEach((layer) => {
         const { cfg, stars } = layer;
         const parX = mouse.active ? mouse.nx * cfg.parallax : 0;
         const parY = mouse.active ? mouse.ny * cfg.parallax : 0;
+
+        // Parallax is applied first, in plain screen space, so it stays locked
+        // to the cursor regardless of spin angle. The rotation is then applied
+        // on top of that, so the two effects don't fight each other.
+        ctx.save();
+        ctx.translate(parX, parY);
+        ctx.translate(width / 2, height / 2);
+        ctx.rotate(rotation);
+        ctx.translate(-width / 2, -height / 2);
 
         stars.forEach((s) => {
           s.x += s.vx;
@@ -104,19 +109,18 @@ export default function ParticleField() {
 
           const twinkle = 0.55 + 0.45 * Math.sin(t * s.twinkleSpeed + s.phase);
           const alpha = s.baseAlpha * twinkle;
-          const drawX = s.x + parX;
-          const drawY = s.y + parY;
 
           ctx.beginPath();
-          ctx.arc(drawX, drawY, s.r, 0, Math.PI * 2);
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(${s.color}, ${alpha})`;
           ctx.shadowColor = `rgba(${s.color}, ${Math.min(alpha + 0.2, 0.95)})`;
           ctx.shadowBlur = cfg.glow;
           ctx.fill();
         });
+
+        ctx.shadowBlur = 0;
+        ctx.restore();
       });
-      ctx.shadowBlur = 0;
-      ctx.restore();
 
       raf = requestAnimationFrame(step);
     }

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<button onclick="togglePlay()">Play</button>
+
+<script type="module">
+import * as Tone from "https://esm.sh/tone";
+
+
+// Lo-fi effects
+
+const filter = new Tone.Filter({
+  type: "lowpass",
+  frequency: 1800,
+  rolloff: -24
+});
+
+
+const chorus = new Tone.Chorus({
+  frequency: 2,
+  delayTime: 3,
+  depth: 0.25,
+  wet: 0.25
+}).start();
+
+
+const reverb = new Tone.Reverb({
+  decay: 4,
+  wet: 0.35
+});
+
+
+// Warm piano synth
+const piano = new Tone.PolySynth(Tone.Synth, {
+  oscillator: {
+    type: "triangle"
+  },
+  envelope: {
+    attack: 0.25,
+    decay: 0.3,
+    sustain: 0.6,
+    release: 2.5
+  }
+});
+
+
+// Connect effects chain
+piano.chain(
+  chorus,
+  filter,
+  reverb,
+  Tone.Destination
+);
+
+
+// Keep it audible
+piano.volume.value = -4;
+
+
+
+// Chords
+const chords = [
+  ["C4", "Eb4", "G4"],
+  ["Ab3", "C4", "Eb4"],
+  ["Bb3", "D4", "F4"],
+  ["G3", "Bb3", "D4"]
+];
+
+
+// Melody
+const melody = [
+  "G4", "Ab4", "G4", "Eb4",
+  "C4", "Eb4", "G4", "Bb4",
+  "F4", "D4", "F4", "G4",
+  "D4", "Bb3", "D4", "G4"
+];
+
+
+let playing = false;
+let sequence;
+let chordLoop;
+
+
+
+function createMusic() {
+
+  // Main melody
+  sequence = new Tone.Sequence(
+    (time, note) => {
+
+      piano.triggerAttackRelease(
+        note,
+        "8n",
+        time,
+        0.65
+      );
+
+    },
+    melody,
+    "8n"
+  );
+
+
+  // Chords underneath
+  let chordIndex = 0;
+
+  chordLoop = new Tone.Loop((time) => {
+
+    piano.triggerAttackRelease(
+      chords[chordIndex],
+      "2n",
+      time,
+      0.55
+    );
+
+
+    chordIndex++;
+
+    if (chordIndex >= chords.length) {
+      chordIndex = 0;
+    }
+
+  }, "2n");
+
+}
+
+
+
+// Play / Stop
+window.togglePlay = async () => {
+
+  await Tone.start();
+
+
+  if (!playing) {
+
+    createMusic();
+
+    Tone.Transport.bpm.value = 90;
+
+
+    sequence.start(0);
+    chordLoop.start(0);
+
+    Tone.Transport.start();
+
+
+    playing = true;
+    document.querySelector("button").textContent = "Stop";
+
+
+  } else {
+
+
+    Tone.Transport.stop();
+
+    sequence.stop();
+    chordLoop.stop();
+
+    piano.releaseAll();
+
+    Tone.Transport.cancel();
+    Tone.Transport.position = 0;
+
+
+    playing = false;
+    document.querySelector("button").textContent = "Play";
+
+  }
+
+};
+
+</script>
+
+</body>
+</html>

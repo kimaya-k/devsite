@@ -172,49 +172,6 @@
   color: var(--ink-soft);
 }
 
-.ring-wrap {
-  position: relative;
-  width: min(560px, 88vw);
-  height: min(560px, 88vw);
-  margin: 2rem auto 1.5rem;
-}
-
-.ring-wrap-content {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.6rem;
-  padding: 12%;
-  text-align: center;
-}
-
-.hero-headline-ring {
-  font-size: clamp(1.6rem, 4vw, 2.6rem);
-  line-height: 1.15;
-  margin: 0;
-}
-
-.ring-wrap-content .hero-headline {
-  font-size: clamp(1.15rem, 2.6vw, 1.7rem);
-  line-height: 1.2;
-}
-
-.ring-wrap {
-  position: relative;
-  width: min(720px, 92vw);
-  height: min(720px, 92vw);
-  margin: 7rem auto 1.5rem;
-}
-
-.ring-play-btn {
-  display: block;
-  margin: 0 auto;
-}
-
 /* ===== Photo ring — now sits directly beneath the heading ===== */
 .hero-photo {
   margin-top: 2.4rem;

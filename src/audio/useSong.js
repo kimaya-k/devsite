@@ -26,7 +26,7 @@ export function useSong() {
     const filter = new Tone.Filter({ type: 'lowpass', frequency: 1800, rolloff: -24 });
     const chorus = new Tone.Chorus({ frequency: 2, delayTime: 3, depth: 0.25, wet: 0.25 }).start();
     const reverb = new Tone.Reverb({ decay: 4, wet: 0.35 });
-    const analyser = new Tone.Analyser('fft', 64);
+    const analyser = new Tone.Analyser('waveform', 128);
 
     const piano = new Tone.PolySynth(Tone.Synth, {
       oscillator: { type: 'triangle' },

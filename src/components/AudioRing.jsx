@@ -1,8 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-const BAR_COUNT = 48;
-const DB_FLOOR = -100;
-const DB_CEIL = -25;
+const BAR_COUNT = 72;
 
 const STOPS = [
   { pos: 0, color: [91, 33, 182] },
@@ -54,28 +52,27 @@ export default function AudioRing({ getLevels, isPlaying }) {
 
     function draw() {
       ctx.clearRect(0, 0, size, size);
-      rotation += isPlaying ? 0.0011 : 0.0004;
+      rotation += isPlaying ? 0.0009 : 0.0003;
 
       const levels = getLevels ? getLevels() : null;
       const center = size / 2;
       const innerRadius = size * 0.34;
-      const maxBarLength = size * 0.11;
+      const maxBarLength = size * 0.12;
       const smooth = smoothRef.current;
 
       for (let i = 0; i < BAR_COUNT; i++) {
-        let target = 0.06;
+        let target = 0.07;
 
         if (levels && levels.length && isPlaying) {
-          const db = levels[i % levels.length];
-          const norm = (db - DB_FLOOR) / (DB_CEIL - DB_FLOOR);
-          target = Math.max(0.06, Math.min(1, norm));
+          const idx = Math.floor((i / BAR_COUNT) * levels.length);
+          target = Math.min(1, Math.abs(levels[idx]) * 5.5 + 0.07);
         } else {
-          target = 0.06 + 0.03 * Math.sin(rotation * 18 + i * 0.9);
+          target = 0.07 + 0.025 * Math.sin(rotation * 20 + i * 0.8);
         }
 
-        smooth[i] += (target - smooth[i]) * 0.16;
+        smooth[i] += (target - smooth[i]) * 0.18;
 
-        const angle = (i / BAR_COUNT) * Math.PI * 2 - Math.PI / 2 + rotation * 0.3;
+        const angle = (i / BAR_COUNT) * Math.PI * 2 - Math.PI / 2;
         const barLen = smooth[i] * maxBarLength;
 
         const x1 = center + Math.cos(angle) * innerRadius;
@@ -84,10 +81,11 @@ export default function AudioRing({ getLevels, isPlaying }) {
         const y2 = center + Math.sin(angle) * (innerRadius + barLen);
 
         ctx.strokeStyle = colorAt(i / BAR_COUNT + rotation);
-        ctx.lineWidth = size * 0.016;
+        // wide relative to the angular gap between bars so they read as one continuous ring
+        ctx.lineWidth = size * 0.021;
         ctx.lineCap = 'round';
-        ctx.shadowColor = 'rgba(167, 139, 250, 0.5)';
-        ctx.shadowBlur = size * 0.012;
+        ctx.shadowColor = 'rgba(167, 139, 250, 0.45)';
+        ctx.shadowBlur = size * 0.01;
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);

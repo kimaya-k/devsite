@@ -1,5 +1,9 @@
 import { useEffect, useRef } from 'react';
 
+const BAR_COUNT = 48;
+const DB_FLOOR = -100;
+const DB_CEIL = -25;
+
 const STOPS = [
   { pos: 0, color: [91, 33, 182] },
   { pos: 0.5, color: [196, 165, 250] },
@@ -27,11 +31,9 @@ function colorAt(t) {
   return `rgb(${last[0]}, ${last[1]}, ${last[2]})`;
 }
 
-const POINTS = 40;
-
 export default function AudioRing({ getLevels, isPlaying }) {
   const canvasRef = useRef(null);
-  const smoothRef = useRef(new Array(POINTS).fill(0.18));
+  const smoothRef = useRef(new Array(BAR_COUNT).fill(0.08));
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -52,61 +54,45 @@ export default function AudioRing({ getLevels, isPlaying }) {
 
     function draw() {
       ctx.clearRect(0, 0, size, size);
-      rotation += isPlaying ? 0.0016 : 0.0006;
+      rotation += isPlaying ? 0.0011 : 0.0004;
 
       const levels = getLevels ? getLevels() : null;
       const center = size / 2;
-      const baseRadius = size * 0.34;
-      const maxExtra = size * 0.09;
+      const innerRadius = size * 0.34;
+      const maxBarLength = size * 0.11;
       const smooth = smoothRef.current;
 
-      const pts = [];
-      for (let i = 0; i < POINTS; i++) {
-        let target = 0.16;
+      for (let i = 0; i < BAR_COUNT; i++) {
+        let target = 0.06;
+
         if (levels && levels.length && isPlaying) {
-          const idx = Math.floor((i / POINTS) * levels.length);
-          target = Math.min(1, Math.abs(levels[idx]) * 6.5 + 0.14);
+          const db = levels[i % levels.length];
+          const norm = (db - DB_FLOOR) / (DB_CEIL - DB_FLOOR);
+          target = Math.max(0.06, Math.min(1, norm));
         } else {
-          target = 0.15 + 0.04 * Math.sin(rotation * 22 + i * 0.6);
+          target = 0.06 + 0.03 * Math.sin(rotation * 18 + i * 0.9);
         }
-        // ease toward the target instead of jumping straight to it — this is what kills the flicker
-        smooth[i] += (target - smooth[i]) * 0.12;
 
-        const angle = (i / POINTS) * Math.PI * 2 - Math.PI / 2;
-        const radius = baseRadius + smooth[i] * maxExtra;
-        pts.push({
-          x: center + Math.cos(angle) * radius,
-          y: center + Math.sin(angle) * radius,
-        });
+        smooth[i] += (target - smooth[i]) * 0.16;
+
+        const angle = (i / BAR_COUNT) * Math.PI * 2 - Math.PI / 2 + rotation * 0.3;
+        const barLen = smooth[i] * maxBarLength;
+
+        const x1 = center + Math.cos(angle) * innerRadius;
+        const y1 = center + Math.sin(angle) * innerRadius;
+        const x2 = center + Math.cos(angle) * (innerRadius + barLen);
+        const y2 = center + Math.sin(angle) * (innerRadius + barLen);
+
+        ctx.strokeStyle = colorAt(i / BAR_COUNT + rotation);
+        ctx.lineWidth = size * 0.016;
+        ctx.lineCap = 'round';
+        ctx.shadowColor = 'rgba(167, 139, 250, 0.5)';
+        ctx.shadowBlur = size * 0.012;
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
       }
-
-      // smooth closed spline through the points instead of straight radial ticks
-      ctx.beginPath();
-      for (let i = 0; i < pts.length; i++) {
-        const curr = pts[i];
-        const next = pts[(i + 1) % pts.length];
-        const midX = (curr.x + next.x) / 2;
-        const midY = (curr.y + next.y) / 2;
-        if (i === 0) {
-          ctx.moveTo(midX, midY);
-        } else {
-          ctx.quadraticCurveTo(curr.x, curr.y, midX, midY);
-        }
-      }
-      ctx.closePath();
-
-      const grad = ctx.createLinearGradient(0, 0, size, size);
-      grad.addColorStop(0, colorAt(rotation));
-      grad.addColorStop(0.5, colorAt(rotation + 0.33));
-      grad.addColorStop(1, colorAt(rotation + 0.66));
-
-      ctx.strokeStyle = grad;
-      ctx.lineWidth = size * 0.02;
-      ctx.lineJoin = 'round';
-      ctx.lineCap = 'round';
-      ctx.shadowColor = 'rgba(167, 139, 250, 0.55)';
-      ctx.shadowBlur = size * 0.025;
-      ctx.stroke();
       ctx.shadowBlur = 0;
 
       raf = requestAnimationFrame(draw);

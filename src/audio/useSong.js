@@ -17,15 +17,16 @@ const MELODY = [
 
 export function useSong() {
   const [isPlaying, setIsPlaying] = useState(false);
-  const engineRef = useRef(null);
+  const staticRef = useRef(null);
+  const loopRef = useRef(null);
 
-  const buildEngine = useCallback(() => {
-    if (engineRef.current) return engineRef.current;
+  const buildStatic = useCallback(() => {
+    if (staticRef.current) return staticRef.current;
 
     const filter = new Tone.Filter({ type: 'lowpass', frequency: 1800, rolloff: -24 });
     const chorus = new Tone.Chorus({ frequency: 2, delayTime: 3, depth: 0.25, wet: 0.25 }).start();
     const reverb = new Tone.Reverb({ decay: 4, wet: 0.35 });
-    const analyser = new Tone.Analyser('waveform', 128);
+    const analyser = new Tone.Analyser('fft', 64);
 
     const piano = new Tone.PolySynth(Tone.Synth, {
       oscillator: { type: 'triangle' },
@@ -35,6 +36,13 @@ export function useSong() {
     piano.chain(chorus, filter, reverb, Tone.Destination);
     piano.connect(analyser);
     piano.volume.value = -4;
+
+    staticRef.current = { piano, analyser };
+    return staticRef.current;
+  }, []);
+
+  const createMusic = useCallback(() => {
+    const { piano } = buildStatic();
 
     const sequence = new Tone.Sequence(
       (time, note) => {
@@ -47,18 +55,20 @@ export function useSong() {
     let chordIndex = 0;
     const chordLoop = new Tone.Loop((time) => {
       piano.triggerAttackRelease(CHORDS[chordIndex], '2n', time, 0.55);
-      chordIndex = (chordIndex + 1) % CHORDS.length;
+      chordIndex++;
+      if (chordIndex >= CHORDS.length) chordIndex = 0;
     }, '2n');
 
-    engineRef.current = { piano, sequence, chordLoop, analyser };
-    return engineRef.current;
-  }, []);
+    loopRef.current = { sequence, chordLoop };
+  }, [buildStatic]);
 
   const toggle = useCallback(async () => {
     await Tone.start();
-    const { sequence, chordLoop, piano } = buildEngine();
 
     if (!isPlaying) {
+      createMusic();
+      const { sequence, chordLoop } = loopRef.current;
+
       Tone.Transport.bpm.value = 90;
       sequence.start(0);
       chordLoop.start(0);
@@ -66,18 +76,25 @@ export function useSong() {
       setIsPlaying(true);
     } else {
       Tone.Transport.stop();
-      sequence.stop();
-      chordLoop.stop();
-      piano.releaseAll();
+
+      const { sequence, chordLoop } = loopRef.current || {};
+      sequence?.stop();
+      chordLoop?.stop();
+      sequence?.dispose();
+      chordLoop?.dispose();
+      loopRef.current = null;
+
+      staticRef.current?.piano.releaseAll();
+
       Tone.Transport.cancel();
       Tone.Transport.position = 0;
       setIsPlaying(false);
     }
-  }, [buildEngine, isPlaying]);
+  }, [isPlaying, createMusic]);
 
   const getLevels = useCallback(() => {
-    if (!engineRef.current) return null;
-    return engineRef.current.analyser.getValue();
+    if (!staticRef.current) return null;
+    return staticRef.current.analyser.getValue();
   }, []);
 
   return { isPlaying, toggle, getLevels };

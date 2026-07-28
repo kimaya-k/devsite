@@ -22,9 +22,8 @@ export const heroPhrases = [
   'the edge cases.',
 ];
 
-export const heroBio = [
-    "I'm Kimaya, a CS student at Purdue and a Jandos Scholarship recipient in the Women in Science Program. Right now I'm researching LLM privacy risks and building intelligent agent pipelines."
-];
+export const heroBio = 
+    "Hi,I'm Kimaya, a CS undergrad at Purdue, currently working at Humana and CATME. I like to build software, web applications, and AI systems that have a real impact on the community through healthcare and education. Off the clock I'm either watching F1 or eating cake. Dive into my world of developing, experimenting and exploring."
 
 export const experience = [
   {

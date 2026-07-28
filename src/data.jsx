@@ -22,11 +22,9 @@ export const heroPhrases = [
   'the edge cases.',
 ];
 
-export const heroBio = (
-  <p className="text-xl md:text-2xl text-purple-200 font-normal leading-relaxed tracking-wide drop-shadow-[0_0_12px_rgba(192,132,252,0.35)]">
-    I'm <span className="text-white font-medium">Kimaya</span>, a CS student at Purdue and a Jandos Scholarship recipient in the Women in Science Program. Right now I'm researching LLM privacy risks and building intelligent agent pipelines.
-  </p>
-);
+export const heroBio = [
+    "I'm Kimaya, a CS student at Purdue and a Jandos Scholarship recipient in the Women in Science Program. Right now I'm researching LLM privacy risks and building intelligent agent pipelines."
+];
 
 export const experience = [
   {

@@ -46,7 +46,7 @@ export default function Hero() {
           onClick={toggle}
           data-cursor-hover
         >
-          {isPlaying ? 'Stop' : 'Play'}
+          {isPlaying ? 'Stop' : 'Play song.js'}
         </button>
 
         <motion.p

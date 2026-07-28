@@ -52,12 +52,14 @@ export default function AudioRing({ getLevels, isPlaying }) {
 
     function draw() {
       ctx.clearRect(0, 0, size, size);
-      rotation += isPlaying ? 0.0009 : 0.0003;
+      // slower rotation
+      rotation += isPlaying ? 0.00045 : 0.00015;
 
       const levels = getLevels ? getLevels() : null;
       const center = size / 2;
       const innerRadius = size * 0.34;
-      const maxBarLength = size * 0.12;
+      // shorter bars
+      const maxBarLength = size * 0.08;
       const smooth = smoothRef.current;
 
       for (let i = 0; i < BAR_COUNT; i++) {
@@ -70,7 +72,8 @@ export default function AudioRing({ getLevels, isPlaying }) {
           target = 0.07 + 0.025 * Math.sin(rotation * 20 + i * 0.8);
         }
 
-        smooth[i] += (target - smooth[i]) * 0.18;
+        // slower easing toward target = calmer, less twitchy motion
+        smooth[i] += (target - smooth[i]) * 0.09;
 
         const angle = (i / BAR_COUNT) * Math.PI * 2 - Math.PI / 2;
         const barLen = smooth[i] * maxBarLength;
@@ -81,8 +84,8 @@ export default function AudioRing({ getLevels, isPlaying }) {
         const y2 = center + Math.sin(angle) * (innerRadius + barLen);
 
         ctx.strokeStyle = colorAt(i / BAR_COUNT + rotation);
-        // wide relative to the angular gap between bars so they read as one continuous ring
-        ctx.lineWidth = size * 0.021;
+        // thicker bars
+        ctx.lineWidth = size * 0.03;
         ctx.lineCap = 'round';
         ctx.shadowColor = 'rgba(167, 139, 250, 0.45)';
         ctx.shadowBlur = size * 0.01;

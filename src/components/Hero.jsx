@@ -74,7 +74,6 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.9 }}
         >
-          Privacy isn't secrecy — it's who gets to see what, and when.
         </motion.p>
       </motion.div>
     </header>

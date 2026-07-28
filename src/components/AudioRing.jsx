@@ -85,7 +85,7 @@ export default function AudioRing({ getLevels, isPlaying }) {
 
         ctx.strokeStyle = colorAt(i / BAR_COUNT + rotation);
         // thicker bars
-        ctx.lineWidth = size * 0.03;
+        ctx.lineWidth = size * 0.02;
         ctx.lineCap = 'round';
         ctx.shadowColor = 'rgba(167, 139, 250, 0.45)';
         ctx.shadowBlur = size * 0.01;

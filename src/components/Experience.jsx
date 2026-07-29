@@ -2,16 +2,6 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import Reveal from './Reveal';
 import { experience } from '../data';
 
-function CarSilhouette({ className }) {
-  return (
-    <svg viewBox="0 0 120 40" className={className} aria-hidden="true">
-      <path d="M8 28 L18 28 L24 18 L46 14 L58 14 L66 20 L96 20 L104 26 L104 30 L96 30 L92 34 L80 34 L76 30 L46 30 L42 34 L30 34 L26 30 L8 30 Z" />
-      <circle cx="32" cy="34" r="5" />
-      <circle cx="86" cy="34" r="5" />
-    </svg>
-  );
-}
-
 function ExperienceCard({ item, offset, cardRef }) {
   return (
     <div className={`exp-card-wrap exp-offset-${offset}`} ref={cardRef}>
@@ -53,7 +43,6 @@ function ExperienceCard({ item, offset, cardRef }) {
 export default function Experience() {
   const containerRef = useRef(null);
   const cardRefs = useRef([]);
-  const carRef = useRef(null);
   const [pathD, setPathD] = useState('');
 
   cardRefs.current = [];
@@ -75,14 +64,6 @@ export default function Experience() {
         };
       });
 
-      if (carRef.current) {
-        const r = carRef.current.getBoundingClientRect();
-        points.push({
-          x: r.left + r.width / 2 - containerRect.left,
-          y: r.top + r.height / 2 - containerRect.top,
-        });
-      }
-
       if (points.length < 2) {
         setPathD('');
         return;
@@ -93,7 +74,7 @@ export default function Experience() {
 
     measure();
     window.addEventListener('resize', measure);
-    const lateId = setTimeout(measure, 350); // catches logo images/fonts loading late
+    const lateId = setTimeout(measure, 350);
     return () => {
       window.removeEventListener('resize', measure);
       clearTimeout(lateId);
@@ -122,10 +103,6 @@ export default function Experience() {
               key={item.org}
             />
           ))}
-
-          <div className="exp-car-wrap" ref={carRef}>
-            <CarSilhouette className="exp-car-svg" />
-          </div>
         </div>
       </div>
     </section>

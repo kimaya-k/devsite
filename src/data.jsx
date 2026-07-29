@@ -16,14 +16,16 @@ export const stats = [
 
 export const heroPhrases = [
   'healthcare.',
-  "people's privacy.",
+  'education',
+  'AI optimization',
+  "individual privacy.",
   'production.',
   'scale.',
   'the edge cases.',
 ];
 
 export const heroBio = 
-    "Hi,I'm Kimaya, a CS undergrad at Purdue, currently working at Humana and CATME. I like to build software, web applications, and AI systems that have a real impact on the community through healthcare and education. Off the clock I'm either watching F1 or eating cake. Dive into my world of developing, experimenting and exploring."
+    "Hi, I'm Kimaya, a CS undergrad at Purdue, currently working at Humana and CATME. I like to build impactful software, web applications, and AI systems that have a real impact on the community through healthcare and education. Off the clock I'm either watching F1 or eating cake. Dive into my world of developing, experimenting and exploring."
 
 export const experience = [
   {

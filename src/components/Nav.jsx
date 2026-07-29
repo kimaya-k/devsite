@@ -10,7 +10,6 @@ const links = [
 export default function Nav() {
   return (
     <nav className="nav">
-      <a className="nav-mark" href="#top">KD</a>
       <ul className="nav-links">
         {links.map(([label, href]) => (
           <li key={href}>

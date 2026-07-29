@@ -7,6 +7,20 @@ import AudioRing from './AudioRing';
 import { useSong } from '../audio/useSong';
 import { heroPhrases, heroBio } from '../data';
 
+const HIGHLIGHT_WORDS = ['CS', 'software', 'applications', 'AI', 'healthcare', 'education', 'community', 'world'];
+const HIGHLIGHT_PATTERN = new RegExp(`\\b(${HIGHLIGHT_WORDS.join('|')})\\b`, 'g');
+
+function renderHighlightedBio(text) {
+  const parts = text.split(HIGHLIGHT_PATTERN);
+  return parts.map((part, i) =>
+    HIGHLIGHT_WORDS.includes(part) ? (
+      <span className="bio-highlight" key={i}>{part}</span>
+    ) : (
+      <span key={i}>{part}</span>
+    )
+  );
+}
+
 export default function Hero() {
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
@@ -55,7 +69,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: 'easeOut', delay: 0.5 }}
         >
-          {heroBio}
+          {renderHighlightedBio(heroBio)}
         </motion.p>
 
         <motion.div

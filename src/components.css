@@ -212,7 +212,7 @@
   background: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(196, 165, 250, 0.12));
   border: 1px solid rgba(167, 139, 250, 0.45);
   border-radius: 999px;
-  padding: 0.6rem 1.7rem;
+  padding: 0.3rem 1.7rem;
   cursor: pointer;
   transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }

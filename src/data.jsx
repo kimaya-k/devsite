@@ -15,10 +15,10 @@ export const stats = [
 ];
 
 export const heroPhrases = [
+  'AI optimization.',
+  'privacy.',
   'healthcare.',
-  'education',
-  'AI optimization',
-  "individual privacy.",
+  'education.',
   'production.',
   'scale.',
   'the edge cases.',

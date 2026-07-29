@@ -33,7 +33,7 @@ export const experience = [
     org: 'Humana',
     mark: { text: 'H', color: '#3f5138', domain: 'humana.com' },
     date: 'May 2026 — Aug 2026',
-    tags: ['LangGraph', 'Azure DevOps', 'Multi-Hop'],
+    tags: ['LangGraph', 'DevOps', 'Multi-Hop'],
     points: [
       'Developed a multi-hop clinical AI pipeline using LangGraph agents to improve the accuracy and precision of acute-change evaluation by verifying home-visit patient notes against LLM outputs, tightening diagnostic reliability further downstream.',
     ],
@@ -53,7 +53,7 @@ export const experience = [
     org: 'Tech Justice Lab',
     mark: { text: 'TJ', color: '#3d4f6b', domain: 'purdue.edu' },
     date: 'Nov 2025 — Present',
-    tags: ['Privacy Research', 'LLM Agents'],
+    tags: ['Privacy', 'LLMs', 'Automated Inference'],
     points: [
       'Researched under Prof. Hanshen Xiao and PhD candidate Y. Du. on automated profile-inference attacks by LLMs by extending multimodal agentic profiling frameworks and designing pipelines to evaluate privacy leakage and de-anonymization risks across real and synthetic datasets.',
     ],
@@ -73,7 +73,7 @@ export const experience = [
     org: 'DataGenie',
     mark: { text: 'DG', color: '#4a4536', domain: 'datagenie.ai' },
     date: 'May 2025 — Aug 2025',
-    tags: ['n8n', 'Encryption'],
+    tags: ['n8n', 'Encryption', 'Multi-Agent'],
     points: [
       'Developed multi-agent workflow in n8n that automated internal client qualification, and engineered custom encryption to enhance product security and data integrity.'
     ],

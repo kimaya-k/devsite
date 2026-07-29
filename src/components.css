@@ -673,82 +673,70 @@
   padding: 0.22rem 0.55rem;
 }
 
-/* ===== Experience — horizontal string of cards ===== */
-.exp-string-track {
+/* ===== Experience — zigzag string of cards ===== */
+.exp-zigzag {
   position: relative;
-  height: 24px;
-  margin: 0 0 1.6rem;
+  padding: 1rem 0 2rem;
 }
 
-.exp-string-line {
+.exp-string-svg {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: 2px;
-  background: var(--line);
-  transform: translateY(-50%);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
 }
 
-.exp-string-fill {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  height: 2px;
-  background: var(--signal);
-  box-shadow: 0 0 10px rgba(167, 139, 250, 0.6);
-  transform: translateY(-50%);
-  transition: width 0.05s linear;
+.exp-string-path {
+  fill: none;
+  stroke: var(--signal);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.55;
+  filter: drop-shadow(0 0 6px rgba(167, 139, 250, 0.5));
 }
 
-.exp-car {
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  transition: left 0.05s linear;
-  z-index: 2;
-}
-
-.exp-car-svg {
-  width: 38px;
-  height: 15px;
-  fill: var(--signal);
-  filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.65));
-}
-
-.exp-scroll {
+.exp-zigzag-row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
   overflow-x: auto;
-  scroll-snap-type: x proximity;
-  padding-bottom: 0.6rem;
+  padding: 3rem 0.5rem 4rem;
   scrollbar-width: thin;
   scrollbar-color: var(--signal) transparent;
 }
 
-.exp-scroll::-webkit-scrollbar {
+.exp-zigzag-row::-webkit-scrollbar {
   height: 6px;
 }
 
-.exp-scroll::-webkit-scrollbar-thumb {
+.exp-zigzag-row::-webkit-scrollbar-thumb {
   background: rgba(167, 139, 250, 0.4);
   border-radius: 999px;
 }
 
-.exp-row {
-  display: flex;
-  gap: 1.4rem;
+.exp-card-wrap {
+  flex: 0 0 280px;
 }
 
-.exp-card-wrap {
-  flex: 0 0 320px;
-  scroll-snap-align: start;
+.exp-offset-up {
+  transform: translateY(-26px);
+}
+
+.exp-offset-down {
+  transform: translateY(26px);
 }
 
 .exp-card {
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
-  padding: 1.7rem 1.6rem;
+  gap: 0.75rem;
+  padding: 1.5rem 1.4rem;
   background: var(--paper-raised);
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -758,7 +746,6 @@
 .exp-card:hover {
   border-color: var(--signal);
   box-shadow: 0 18px 40px -24px rgba(124, 58, 237, 0.4);
-  transform: translateY(-3px);
 }
 
 .exp-card-top {
@@ -768,8 +755,8 @@
 }
 
 .exp-card-logo {
-  width: 46px;
-  height: 46px;
+  width: 42px;
+  height: 42px;
   border-radius: 9px;
   overflow: hidden;
   display: flex;
@@ -778,8 +765,9 @@
   background: var(--mark-color, var(--signal));
   color: #fff;
   font-family: var(--mono);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
+  flex-shrink: 0;
 }
 
 .exp-card-logo img {
@@ -791,20 +779,20 @@
 
 .exp-card-date {
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--ink-faint);
   white-space: nowrap;
 }
 
 .exp-card-role {
-  font-size: 1.3rem;
+  font-size: 1.18rem;
   font-weight: 700;
   line-height: 1.25;
 }
 
 .exp-card-org {
   font-family: var(--mono);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   color: var(--signal);
 }
 
@@ -814,16 +802,15 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
-  flex: 1;
+  gap: 0.4rem;
 }
 
 .exp-card-points li {
   position: relative;
-  padding-left: 1.05rem;
-  font-size: 0.89rem;
+  padding-left: 1rem;
+  font-size: 0.85rem;
   color: var(--ink-soft);
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
 .exp-card-points li::before {
@@ -836,13 +823,35 @@
 .exp-card-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.45rem;
   margin-top: auto;
+}
+
+.exp-car-wrap {
+  flex: 0 0 auto;
+  transform: translateY(30px);
+  animation: exp-car-vroom 2.4s ease-in-out infinite;
+}
+
+.exp-car-svg {
+  width: 58px;
+  height: 22px;
+  fill: var(--signal);
+  filter: drop-shadow(0 0 10px rgba(167, 139, 250, 0.65));
+}
+
+@keyframes exp-car-vroom {
+  0%, 100% { transform: translateY(30px) translateX(0); }
+  50% { transform: translateY(30px) translateX(6px); }
 }
 
 @media (max-width: 640px) {
   .exp-card-wrap {
-    flex-basis: 270px;
+    flex-basis: 240px;
+  }
+  .exp-offset-up,
+  .exp-offset-down {
+    transform: translateY(0);
   }
 }
 

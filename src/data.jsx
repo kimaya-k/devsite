@@ -59,16 +59,6 @@ export const experience = [
     ],
   },
   {
-    role: 'Student Developer',
-    org: 'Dow Chemical — Data Mine Corporate Partners',
-    mark: { text: 'D', color: '#7a3b30', domain: 'dow.com' },
-    date: 'Aug 2025 — May 2026',
-    tags: ['DSPy', 'FastAPI', 'Docker'],
-    points: [
-      'Built an AI report generation agent using LangGraph, DSPy, RAG, and vector embeddings to automate project reports with Quarto visualizations. Developed a FastAPI–DuckDB backend, containerized the application with Docker, and performed large-scale data analysis using SQL, Python, and Bash.',
-    ],
-  },
-  {
     role: 'Software Intern',
     org: 'DataGenie',
     mark: { text: 'DG', color: '#4a4536', domain: 'datagenie.ai' },
@@ -76,6 +66,16 @@ export const experience = [
     tags: ['n8n', 'Encryption', 'Multi-Agent'],
     points: [
       'Developed multi-agent workflow in n8n that automated internal client qualification, and engineered custom encryption to enhance product security and data integrity.'
+    ],
+  },
+  {
+    role: 'Student Developer',
+    org: 'Dow Chemical — Data Mine Corporate Partners',
+    mark: { text: 'D', color: '#7a3b30', domain: 'dow.com' },
+    date: 'Aug 2025 — May 2026',
+    tags: ['DSPy', 'FastAPI', 'Docker'],
+    points: [
+      'Built an AI report generation agent using LangGraph, DSPy, RAG, and vector embeddings to automate project reports with Quarto visualizations. Developed a FastAPI–DuckDB backend, containerized the application with Docker, and performed large-scale data analysis using SQL, Python, and Bash.',
     ],
   },
 ];

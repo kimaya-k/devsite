@@ -2,6 +2,20 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import Reveal from './Reveal';
 import { experience } from '../data';
 
+function handDrawnEllipse(cx, cy, rx, ry) {
+  const rx1 = rx * 1.06;
+  const ry1 = ry * 0.94;
+  const rx2 = rx * 0.95;
+  const ry2 = ry * 1.07;
+  return [
+    `M ${cx - rx1} ${cy}`,
+    `C ${cx - rx1} ${cy - ry2 * 1.35}, ${cx - rx2 * 0.4} ${cy - ry1 * 1.4}, ${cx} ${cy - ry1}`,
+    `C ${cx + rx2 * 0.5} ${cy - ry1 * 1.35}, ${cx + rx1} ${cy - ry2 * 1.3}, ${cx + rx1} ${cy}`,
+    `C ${cx + rx1} ${cy + ry2 * 1.3}, ${cx + rx2 * 0.45} ${cy + ry1 * 1.4}, ${cx - rx2 * 0.05} ${cy + ry1 * 1.02}`,
+    `C ${cx - rx2 * 0.55} ${cy + ry1 * 1.32}, ${cx - rx1} ${cy + ry2 * 1.15}, ${cx - rx1} ${cy}`,
+  ].join(' ');
+}
+
 function ExperienceCard({ item, offset, cardRef }) {
   return (
     <div className={`exp-card-wrap exp-offset-${offset}`} ref={cardRef}>
@@ -41,9 +55,12 @@ function ExperienceCard({ item, offset, cardRef }) {
 }
 
 export default function Experience() {
-  const containerRef = useRef(null);
+  const wrapRef = useRef(null);
+  const headingRef = useRef(null);
   const cardRefs = useRef([]);
-  const [pathD, setPathD] = useState('');
+  const [circleD, setCircleD] = useState('');
+  const [leadD, setLeadD] = useState('');
+  const [stringD, setStringD] = useState('');
 
   cardRefs.current = [];
   const setCardRef = (el) => {
@@ -52,24 +69,45 @@ export default function Experience() {
 
   useLayoutEffect(() => {
     function measure() {
-      const container = containerRef.current;
-      if (!container) return;
-      const containerRect = container.getBoundingClientRect();
+      const wrap = wrapRef.current;
+      const heading = headingRef.current;
+      if (!wrap || !heading) return;
+      const wrapRect = wrap.getBoundingClientRect();
+      const hRect = heading.getBoundingClientRect();
 
-      const points = cardRefs.current.map((el) => {
+      const hCx = hRect.left + hRect.width / 2 - wrapRect.left;
+      const hCy = hRect.top + hRect.height / 2 - wrapRect.top;
+      const hRx = hRect.width / 2 + 26;
+      const hRy = hRect.height / 2 + 20;
+      setCircleD(handDrawnEllipse(hCx, hCy, hRx, hRy));
+
+      const cardPoints = cardRefs.current.map((el) => {
         const r = el.getBoundingClientRect();
         return {
-          x: r.left + r.width / 2 - containerRect.left,
-          y: r.top + r.height / 2 - containerRect.top,
+          x: r.left + r.width / 2 - wrapRect.left,
+          y: r.top + r.height / 2 - wrapRect.top,
+          top: r.top - wrapRect.top,
         };
       });
 
-      if (points.length < 2) {
-        setPathD('');
-        return;
+      if (cardPoints.length > 0) {
+        const first = cardPoints[0];
+        const startX = hCx - hRx * 0.15;
+        const startY = hCy + hRy * 1.3;
+        const endX = first.x - 20;
+        const endY = first.top;
+        const ctrl1X = startX - 30;
+        const ctrl1Y = startY + (endY - startY) * 0.4;
+        const ctrl2X = endX + 40;
+        const ctrl2Y = endY - (endY - startY) * 0.25;
+        setLeadD(`M ${startX} ${startY} C ${ctrl1X} ${ctrl1Y}, ${ctrl2X} ${ctrl2Y}, ${endX} ${endY}`);
       }
 
-      setPathD(points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' '));
+      if (cardPoints.length >= 2) {
+        setStringD(cardPoints.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' '));
+      } else {
+        setStringD('');
+      }
     }
 
     measure();
@@ -83,16 +121,17 @@ export default function Experience() {
 
   return (
     <section id="experience" className="section">
-      <Reveal className="section-head">
-        <span className="eyebrow">Experience</span>
-        <h2>Experiences.</h2>
-        <p>My journey has only just begun.</p>
-      </Reveal>
-
-      <div className="exp-zigzag" ref={containerRef}>
-        <svg className="exp-string-svg">
-          <path d={pathD} className="exp-string-path" />
+      <div className="exp-wrap" ref={wrapRef}>
+        <svg className="exp-annotation-svg">
+          <path d={circleD} className="exp-annotation-path" />
+          <path d={leadD} className="exp-annotation-path exp-annotation-lead" />
+          <path d={stringD} className="exp-string-path" />
         </svg>
+
+        <Reveal className="section-head">
+          <h2 className="exp-heading" ref={headingRef}>Experiences.</h2>
+          <p>My journey has only just begun.</p>
+        </Reveal>
 
         <div className="exp-zigzag-row">
           {experience.map((item, index) => (

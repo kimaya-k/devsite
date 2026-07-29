@@ -31,7 +31,7 @@ export const experience = [
   {
     role: 'Enterprise AI Software Intern',
     org: 'Humana',
-    mark: { text: 'H', color: '#3f5138', logo: '/public/logos/humana.png' },
+    mark: { text: 'H', color: '#3f5138', logo: '/logos/humana.png' },
     date: 'May 2026 — Aug 2026',
     tags: ['LangGraph', 'DevOps', 'Multi-Hop'],
     points: [
@@ -41,7 +41,7 @@ export const experience = [
   {
     role: 'Software Developer',
     org: 'CATME',
-    mark: { text: 'C', color: '#8a6b2f', logo: '/public/logos/catme.png' },
+    mark: { text: 'C', color: '#8a6b2f', logo: '/logos/catme.png' },
     date: 'Jan 2026 — Present',
     tags: ['Perl', 'SQL', 'Zendesk'],
     points: [
@@ -51,7 +51,7 @@ export const experience = [
   {
     role: 'Research Assistant',
     org: 'Tech Justice Lab',
-    mark: { text: 'TJ', color: '#3d4f6b', logo: '/public/logos/techjusticelab.png' },
+    mark: { text: 'TJ', color: '#3d4f6b', logo: '/logos/techjusticelab.png' },
     date: 'Nov 2025 — Present',
     tags: ['Privacy', 'LLMs', 'Automated Inference'],
     points: [
@@ -61,7 +61,7 @@ export const experience = [
   {
     role: 'Software Intern',
     org: 'DataGenie',
-    mark: { text: 'DG', color: '#4a4536', logo: '/public/logos/datagenie.png' },
+    mark: { text: 'DG', color: '#4a4536', logo: '/logos/datagenie.png' },
     date: 'May 2025 — Aug 2025',
     tags: ['n8n', 'Encryption', 'Multi-Agent'],
     points: [
@@ -71,7 +71,7 @@ export const experience = [
   {
     role: 'Student Developer',
     org: 'Dow Chemical — Data Mine Corporate Partners',
-    mark: { text: 'D', color: '#7a3b30', logo: '/public/logos/dow.png' },
+    mark: { text: 'D', color: '#7a3b30', logo: '/logos/dow.png' },
     date: 'Aug 2025 — May 2026',
     tags: ['DSPy', 'FastAPI', 'Docker'],
     points: [

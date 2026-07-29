@@ -25,15 +25,11 @@ function ExperienceCard({ item, offset, cardRef }) {
       <div className="exp-card">
         <div className="exp-card-top">
           <span className="exp-card-logo" style={{ '--mark-color': item.mark.color }}>
-            {item.mark.logo ? (
-              <img
-                src={item.mark.logo}
-                alt=""
-                onError={(e) => { e.currentTarget.style.display = 'none'; }}
-              />
-            ) : (
-              item.mark.text
-            )}
+            <img
+              src={`${import.meta.env.BASE_URL}${item.mark.logo}`}
+              alt=""
+              onError={(e) => { e.currentTarget.style.display = 'none'; }}
+            />
           </span>
           <span className="exp-card-date">{item.date}</span>
         </div>

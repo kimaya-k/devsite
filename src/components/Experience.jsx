@@ -86,26 +86,30 @@ export default function Experience() {
       const h = bRect.height + padY * 2;
       setCircleD(handDrawnRoundedRect(x, y, w, h, 26));
 
+      const boxBottomX = x + w * 0.22;
+      const boxBottomY = y + h;
+
+      if (cardRefs.current[0]) {
+        const r = cardRefs.current[0].getBoundingClientRect();
+        const endX = r.left - wrapRect.left + Math.min(30, r.width * 0.15);
+        const endY = r.top - wrapRect.top;
+
+        // guarantee a visible drop even if the card sits close to the box
+        const minGap = 40;
+        const safeEndY = Math.max(endY, boxBottomY + minGap);
+        const ctrlX = (boxBottomX + endX) / 2 - 24;
+        const ctrlY = boxBottomY + (safeEndY - boxBottomY) * 0.55;
+
+        setLeadD(`M ${boxBottomX} ${boxBottomY} Q ${ctrlX} ${ctrlY}, ${endX} ${safeEndY}`);
+      }
+
       const cardPoints = cardRefs.current.map((el) => {
         const r = el.getBoundingClientRect();
         return {
           x: r.left + r.width / 2 - wrapRect.left,
           y: r.top + r.height / 2 - wrapRect.top,
-          top: r.top - wrapRect.top,
-          left: r.left - wrapRect.left,
         };
       });
-
-      if (cardPoints.length > 0) {
-        const first = cardPoints[0];
-        const startX = x + w * 0.18;
-        const startY = y + h;
-        const endX = first.left + 16;
-        const endY = first.top;
-        const ctrlX = (startX + endX) / 2 - 20;
-        const ctrlY = (startY + endY) / 2;
-        setLeadD(`M ${startX} ${startY} Q ${ctrlX} ${ctrlY}, ${endX} ${endY}`);
-      }
 
       if (cardPoints.length >= 2) {
         setStringD(cardPoints.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' '));

@@ -2,17 +2,20 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import Reveal from './Reveal';
 import { experience } from '../data';
 
-function handDrawnEllipse(cx, cy, rx, ry) {
-  const rx1 = rx * 1.06;
-  const ry1 = ry * 0.94;
-  const rx2 = rx * 0.95;
-  const ry2 = ry * 1.07;
+function handDrawnRoundedRect(x, y, w, h, r) {
+  const jx = 4;
+  const jy = 3;
   return [
-    `M ${cx - rx1} ${cy}`,
-    `C ${cx - rx1} ${cy - ry2 * 1.35}, ${cx - rx2 * 0.4} ${cy - ry1 * 1.4}, ${cx} ${cy - ry1}`,
-    `C ${cx + rx2 * 0.5} ${cy - ry1 * 1.35}, ${cx + rx1} ${cy - ry2 * 1.3}, ${cx + rx1} ${cy}`,
-    `C ${cx + rx1} ${cy + ry2 * 1.3}, ${cx + rx2 * 0.45} ${cy + ry1 * 1.4}, ${cx - rx2 * 0.05} ${cy + ry1 * 1.02}`,
-    `C ${cx - rx2 * 0.55} ${cy + ry1 * 1.32}, ${cx - rx1} ${cy + ry2 * 1.15}, ${cx - rx1} ${cy}`,
+    `M ${x + r} ${y - jy * 0.4}`,
+    `L ${x + w - r} ${y + jy * 0.3}`,
+    `Q ${x + w + jx} ${y}, ${x + w} ${y + r}`,
+    `L ${x + w + jx * 0.3} ${y + h - r}`,
+    `Q ${x + w} ${y + h + jy}, ${x + w - r} ${y + h}`,
+    `L ${x + r} ${y + h - jy * 0.3}`,
+    `Q ${x - jx} ${y + h}, ${x} ${y + h - r}`,
+    `L ${x + jx * 0.4} ${y + r}`,
+    `Q ${x} ${y - jy}, ${x + r} ${y}`,
+    'Z',
   ].join(' ');
 }
 
@@ -56,7 +59,7 @@ function ExperienceCard({ item, offset, cardRef }) {
 
 export default function Experience() {
   const wrapRef = useRef(null);
-  const headingRef = useRef(null);
+  const headingBlockRef = useRef(null);
   const cardRefs = useRef([]);
   const [circleD, setCircleD] = useState('');
   const [leadD, setLeadD] = useState('');
@@ -70,16 +73,18 @@ export default function Experience() {
   useLayoutEffect(() => {
     function measure() {
       const wrap = wrapRef.current;
-      const heading = headingRef.current;
-      if (!wrap || !heading) return;
+      const block = headingBlockRef.current;
+      if (!wrap || !block) return;
       const wrapRect = wrap.getBoundingClientRect();
-      const hRect = heading.getBoundingClientRect();
+      const bRect = block.getBoundingClientRect();
 
-      const hCx = hRect.left + hRect.width / 2 - wrapRect.left;
-      const hCy = hRect.top + hRect.height / 2 - wrapRect.top;
-      const hRx = hRect.width / 2 + 26;
-      const hRy = hRect.height / 2 + 20;
-      setCircleD(handDrawnEllipse(hCx, hCy, hRx, hRy));
+      const padX = 22;
+      const padY = 16;
+      const x = bRect.left - wrapRect.left - padX;
+      const y = bRect.top - wrapRect.top - padY;
+      const w = bRect.width + padX * 2;
+      const h = bRect.height + padY * 2;
+      setCircleD(handDrawnRoundedRect(x, y, w, h, 26));
 
       const cardPoints = cardRefs.current.map((el) => {
         const r = el.getBoundingClientRect();
@@ -87,20 +92,19 @@ export default function Experience() {
           x: r.left + r.width / 2 - wrapRect.left,
           y: r.top + r.height / 2 - wrapRect.top,
           top: r.top - wrapRect.top,
+          left: r.left - wrapRect.left,
         };
       });
 
       if (cardPoints.length > 0) {
         const first = cardPoints[0];
-        const startX = hCx - hRx * 0.15;
-        const startY = hCy + hRy * 1.3;
-        const endX = first.x - 20;
+        const startX = x + w * 0.18;
+        const startY = y + h;
+        const endX = first.left + 16;
         const endY = first.top;
-        const ctrl1X = startX - 30;
-        const ctrl1Y = startY + (endY - startY) * 0.4;
-        const ctrl2X = endX + 40;
-        const ctrl2Y = endY - (endY - startY) * 0.25;
-        setLeadD(`M ${startX} ${startY} C ${ctrl1X} ${ctrl1Y}, ${ctrl2X} ${ctrl2Y}, ${endX} ${endY}`);
+        const ctrlX = (startX + endX) / 2 - 20;
+        const ctrlY = (startY + endY) / 2;
+        setLeadD(`M ${startX} ${startY} Q ${ctrlX} ${ctrlY}, ${endX} ${endY}`);
       }
 
       if (cardPoints.length >= 2) {
@@ -120,17 +124,19 @@ export default function Experience() {
   }, []);
 
   return (
-    <section id="experience" className="section">
+    <section id="experience" className="section exp-section">
       <div className="exp-wrap" ref={wrapRef}>
         <svg className="exp-annotation-svg">
           <path d={circleD} className="exp-annotation-path" />
-          <path d={leadD} className="exp-annotation-path exp-annotation-lead" />
+          <path d={leadD} className="exp-annotation-path" />
           <path d={stringD} className="exp-string-path" />
         </svg>
 
         <Reveal className="section-head">
-          <h2 className="exp-heading" ref={headingRef}>Experiences.</h2>
-          <p>My journey has only just begun.</p>
+          <div className="exp-heading-block" ref={headingBlockRef}>
+            <h2 className="exp-heading">Experiences.</h2>
+            <p>My journey has only just begun.</p>
+          </div>
         </Reveal>
 
         <div className="exp-zigzag-row">

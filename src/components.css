@@ -674,6 +674,10 @@
 }
 
 /* ===== Experience — zigzag string of cards ===== */
+.exp-section {
+  max-width: 1400px;
+}
+
 .exp-wrap {
   position: relative;
   padding: 1rem 0 3.5rem;
@@ -695,12 +699,7 @@
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
-  opacity: 0.75;
-}
-
-.exp-annotation-lead {
-  opacity: 0.55;
-  stroke-dasharray: 5 7;
+  opacity: 0.8;
 }
 
 .exp-string-path {
@@ -711,6 +710,10 @@
   stroke-linejoin: round;
   opacity: 0.5;
   filter: drop-shadow(0 0 6px rgba(167, 139, 250, 0.45));
+}
+
+.exp-heading-block {
+  display: inline-block;
 }
 
 .exp-heading {
@@ -725,13 +728,13 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
-  gap: 4.5rem 1.6rem;
+  gap: 4.5rem 1.4rem;
   margin-top: 2.5rem;
 }
 
 .exp-card-wrap {
-  flex: 1 1 260px;
-  max-width: 300px;
+  flex: 1 1 220px;
+  max-width: 240px;
 }
 
 .exp-offset-up {
@@ -746,8 +749,8 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  padding: 1.5rem 1.4rem;
+  gap: 0.65rem;
+  padding: 1.3rem 1.2rem;
   background: var(--paper-raised);
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -766,9 +769,9 @@
 }
 
 .exp-card-logo {
-  width: 42px;
-  height: 42px;
-  border-radius: 9px;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -776,7 +779,7 @@
   background: var(--mark-color, var(--signal));
   color: #fff;
   font-family: var(--mono);
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   font-weight: 600;
   flex-shrink: 0;
 }
@@ -790,20 +793,20 @@
 
 .exp-card-date {
   font-family: var(--mono);
-  font-size: 0.7rem;
+  font-size: 0.66rem;
   color: var(--ink-faint);
   white-space: nowrap;
 }
 
 .exp-card-role {
-  font-size: 1.18rem;
+  font-size: 1.05rem;
   font-weight: 700;
   line-height: 1.25;
 }
 
 .exp-card-org {
   font-family: var(--mono);
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   color: var(--signal);
 }
 
@@ -813,29 +816,26 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.35rem;
 }
 
 .exp-card-points li {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--ink-soft);
-  line-height: 1.45;
+  line-height: 1.42;
 }
 
 .exp-card-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.45rem;
+  gap: 0.4rem;
   margin-top: auto;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 900px) {
   .exp-offset-up,
   .exp-offset-down {
     transform: translateY(0);
-  }
-  .exp-annotation-lead {
-    display: none;
   }
 }
 

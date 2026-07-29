@@ -25,9 +25,9 @@ function ExperienceCard({ item, offset, cardRef }) {
       <div className="exp-card">
         <div className="exp-card-top">
           <span className="exp-card-logo" style={{ '--mark-color': item.mark.color }}>
-            {item.mark.domain ? (
+            {item.mark.logo ? (
               <img
-                src={`https://logo.clearbit.com/${item.mark.domain}?size=88`}
+                src={item.mark.logo}
                 alt=""
                 onError={(e) => { e.currentTarget.style.display = 'none'; }}
               />

@@ -131,14 +131,12 @@ export default function Experience() {
     <section id="experience" className="section exp-section">
       <div className="exp-wrap" ref={wrapRef}>
         <svg className="exp-annotation-svg">
-          <path d={circleD} className="exp-annotation-path" />
-          <path d={leadD} className="exp-annotation-path" />
           <path d={stringD} className="exp-string-path" />
         </svg>
 
         <Reveal className="section-head">
           <div className="exp-heading-block" ref={headingBlockRef}>
-            <h2 className="exp-heading">Experiences.</h2>
+            <h2 className="exp-heading">Experience</h2>
           </div>
         </Reveal>
 

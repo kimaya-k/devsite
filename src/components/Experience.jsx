@@ -139,7 +139,6 @@ export default function Experience() {
         <Reveal className="section-head">
           <div className="exp-heading-block" ref={headingBlockRef}>
             <h2 className="exp-heading">Experiences.</h2>
-            <p>My journey has only just begun.</p>
           </div>
         </Reveal>
 

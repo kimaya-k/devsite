@@ -71,7 +71,7 @@ export const experience = [
   {
     role: 'Student Developer',
     org: 'Dow Chemical — Data Mine Corporate Partners',
-    mark: { text: 'D', color: '#7a3b30', logo: 'logos/dow.jpg' },
+    mark: { text: 'D', color: '#7a3b30', logo: 'logos/dow.png' },
     date: 'Aug 2025 — May 2026',
     tags: ['DSPy', 'FastAPI', 'Docker'],
     points: [

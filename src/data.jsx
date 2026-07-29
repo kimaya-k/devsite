@@ -35,9 +35,7 @@ export const experience = [
     date: 'May 2026 — Aug 2026',
     tags: ['LangGraph', 'Azure DevOps', 'Multi-Hop'],
     points: [
-      'Built a multi-hop architecture pipeline that raised the accuracy and precision of acute-change evaluation across clinical measures like vitals.',
-      'Developed LangGraph agents that verify home-visit patient notes against LLM output, tightening diagnostic reliability further downstream.',
-      'Ran the work through Azure DevOps sprints, keeping delivery on track across cross-functional milestones.',
+      'Developed a multi-hop clinical AI pipeline using LangGraph agents to improve the accuracy and precision of acute-change evaluation by verifying home-visit patient notes against LLM outputs, tightening diagnostic reliability further downstream.',
     ],
   },
   {
@@ -47,21 +45,17 @@ export const experience = [
     date: 'Jan 2026 — Present',
     tags: ['Perl', 'SQL', 'Zendesk'],
     points: [
-      'Maintain backend functionality for a Purdue-built platform used for team formation and peer evaluation.',
-      'Diagnose and resolve production issues reported through Zendesk with system-level debugging.',
-      'Ship bug fixes, new features, and an audit-tracking system in Perl and SQL.',
+      'Maintained and enhanced the backend of Purdue\'s team formation and peer evaluation platform by resolving production issues, troubleshooting user issues in Zendesk, implementing new software features, and developing an audit-tracking system using Perl and SQL.',
     ],
   },
   {
     role: 'Research Assistant',
-    org: 'Tech Justice Lab — LLM Privacy & Profiling',
+    org: 'Tech Justice Lab',
     mark: { text: 'TJ', color: '#3d4f6b', domain: 'purdue.edu' },
     date: 'Nov 2025 — Present',
     tags: ['Privacy Research', 'LLM Agents'],
     points: [
-      'Research automated profile-inference attacks on LLMs under Prof. Hanshen Xiao and PhD candidate Y. Du.',
-      'Extend an LLM-agent framework that builds holistic user profiles from multimodal interaction histories.',
-      'Design profiling pipelines that measure privacy leakage and de-anonymization risk across real and synthetic datasets.',
+      'Researched under Prof. Hanshen Xiao and PhD candidate Y. Du. on automated profile-inference attacks by LLMs by extending multimodal agentic profiling frameworks and designing pipelines to evaluate privacy leakage and de-anonymization risks across real and synthetic datasets.',
     ],
   },
   {
@@ -71,9 +65,7 @@ export const experience = [
     date: 'Aug 2025 — May 2026',
     tags: ['DSPy', 'FastAPI', 'Docker'],
     points: [
-      'Built an AI report agent with LangGraph and DSPy that generates project reports from vector embeddings, RAG, and Quarto visualizations.',
-      'Stood up a DuckDB backend behind FastAPI endpoints, tested with Postman and shipped in Docker.',
-      'Analyzed large-scale datasets in SQL, Python, and Bash to surface insights for the partner team.',
+      'Built an AI report generation agent using LangGraph, DSPy, RAG, and vector embeddings to automate project reports with Quarto visualizations. Developed a FastAPI–DuckDB backend, containerized the application with Docker, and performed large-scale data analysis using SQL, Python, and Bash.',
     ],
   },
   {
@@ -83,8 +75,7 @@ export const experience = [
     date: 'May 2025 — Aug 2025',
     tags: ['n8n', 'Encryption'],
     points: [
-      'Built agentic and multi-agent workflows in n8n that automated the internal client-qualification process.',
-      'Researched and implemented custom encryption to secure packaged products and protect data integrity.',
+      'Developed multi-agent workflow in n8n that automated internal client qualification, and engineered custom encryption to enhance product security and data integrity.'
     ],
   },
 ];
@@ -174,6 +165,12 @@ export const involvement = [
     org: 'Purdue Science Student Council',
     date: 'Mar 2025 — Dec 2025',
     note: "Organized community outreach events including Science Sunday and card-making for retirement homes.",
+  },
+   {
+    role: 'Project Mentor',
+    org: 'LaunchPad',
+    date: 'Mar 2025 — Dec 2025',
+    note: "Mentoring a student in designing and developing an AI-powered web application for solving and explaining AIME math competition problems, leveraging Python, LoRA fine-tuning, and GSM8k datasets. Guiding end-to-end project development including model training, dataset curation, output evaluation, and performance optimization.",
   },
 ];
 

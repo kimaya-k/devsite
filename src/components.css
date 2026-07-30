@@ -22,8 +22,8 @@
 }
 
 .nav-scrolled {
-  background: rgba(10, 10, 10, 0.75);
-  backdrop-filter: blur(14px);
+  background: rgb(10, 10, 10); /* fully opaque, alpha removed */
+  backdrop-filter: blur(14px); /* optional now — has no visible effect once background is 100% opaque, but harmless to keep in case you soften opacity later */
   -webkit-backdrop-filter: blur(14px);
   border-bottom-color: rgba(255, 255, 255, 0.06);
 }

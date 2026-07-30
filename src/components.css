@@ -893,55 +893,20 @@
 
 .project-link {
   font-family: var(--mono);
-  font-size: 0.72rem;
-  color: var(--paper);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ffffff;
   background: var(--signal);
   text-decoration: none;
-  padding: 0.32rem 0.7rem;
+  padding: 0.32rem 0.75rem;
   border-radius: 999px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: inline-block;
 }
 
 .project-link:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 18px -8px rgba(167, 139, 250, 0.6);
-}
-
-/* ===== Puzzle-tab card silhouette (decorative only — protrudes outward, never touches content) ===== */
-.puzzle-tab-right {
-  clip-path: polygon(
-    0 0, 100% 0,
-    100% calc(50% - 20px),
-    calc(100% + 12px) calc(50% - 20px),
-    calc(100% + 12px) calc(50% - 8px),
-    calc(100% + 20px) calc(50% - 8px),
-    calc(100% + 20px) calc(50% + 8px),
-    calc(100% + 12px) calc(50% + 8px),
-    calc(100% + 12px) calc(50% + 20px),
-    100% calc(50% + 20px),
-    100% 100%, 0 100%
-  );
-}
-
-.puzzle-tab-left {
-  clip-path: polygon(
-    0 0, 100% 0, 100% 100%, 0 100%,
-    0 calc(50% + 20px),
-    calc(-12px) calc(50% + 20px),
-    calc(-12px) calc(50% + 8px),
-    calc(-20px) calc(50% + 8px),
-    calc(-20px) calc(50% - 8px),
-    calc(-12px) calc(50% - 8px),
-    calc(-12px) calc(50% - 20px),
-    0 calc(50% - 20px)
-  );
-}
-
-@media (max-width: 1000px) {
-  .puzzle-tab-right,
-  .puzzle-tab-left {
-    clip-path: none;
-  }
 }
 
 .project-card:hover {

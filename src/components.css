@@ -12,20 +12,29 @@
   font-family: var(--mono);
   font-size: 0.78rem;
   letter-spacing: 0.04em;
-  color: var(--ink);
+  mix-blend-mode: difference;
+  color: #fff;
   pointer-events: none;
-  background: rgba(10, 10, 10, 0);
-  backdrop-filter: blur(0px);
-  -webkit-backdrop-filter: blur(0px);
-  border-bottom: 1px solid transparent;
-  transition: background 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease;
 }
 
 .nav-scrolled {
-  background: rgb(10, 10, 10); /* fully opaque, alpha removed */
-  backdrop-filter: blur(14px); /* optional now — has no visible effect once background is 100% opaque, but harmless to keep in case you soften opacity later */
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom-color: rgba(255, 255, 255, 0.06);
+  mix-blend-mode: normal;
+  background: rgba(18, 17, 16, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  padding-top: 1.1rem;
+  padding-bottom: 1.1rem;
+  transition: background 0.3s ease, padding 0.3s ease, border-color 0.3s ease;
+}
+
+.nav-scrolled .nav-links a {
+  color: var(--ink);
+  opacity: 0.75;
+}
+
+.nav-scrolled .nav-links a:hover {
+  opacity: 1;
 }
 
 .nav a,
@@ -874,7 +883,7 @@
   padding: 1.5rem 1.3rem;
   border: 1px solid var(--line);
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.035);
+  background: rgba(255, 255, 255, 0.021);
   backdrop-filter: blur(6px);
   display: flex;
   flex-direction: column;

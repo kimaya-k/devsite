@@ -52,7 +52,7 @@ function ProjectCard({ project, index }) {
             {project.links?.length > 0 && (
               <div className="project-links">
                 {project.links.map((link) => (
-                  
+                  <a
                     key={link.url}
                     href={link.url}
                     target="_blank"

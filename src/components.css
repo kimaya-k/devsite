@@ -860,9 +860,12 @@
   min-width: 0;
 }
 
-.project-desc,
-.tag {
+.project-desc {
   overflow-wrap: break-word;
+}
+
+.tag {
+  white-space: nowrap;
 }
 
 .project-card {
@@ -871,13 +874,74 @@
   padding: 1.5rem 1.3rem;
   border: 1px solid var(--line);
   border-radius: 10px;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: transparent;
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
   transform-style: preserve-3d;
   will-change: transform;
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  min-width: 0;
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.project-link {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--paper);
+  background: var(--signal);
+  text-decoration: none;
+  padding: 0.32rem 0.7rem;
+  border-radius: 999px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px -8px rgba(167, 139, 250, 0.6);
+}
+
+/* ===== Puzzle-tab card silhouette (decorative only — protrudes outward, never touches content) ===== */
+.puzzle-tab-right {
+  clip-path: polygon(
+    0 0, 100% 0,
+    100% calc(50% - 20px),
+    calc(100% + 12px) calc(50% - 20px),
+    calc(100% + 12px) calc(50% - 8px),
+    calc(100% + 20px) calc(50% - 8px),
+    calc(100% + 20px) calc(50% + 8px),
+    calc(100% + 12px) calc(50% + 8px),
+    calc(100% + 12px) calc(50% + 20px),
+    100% calc(50% + 20px),
+    100% 100%, 0 100%
+  );
+}
+
+.puzzle-tab-left {
+  clip-path: polygon(
+    0 0, 100% 0, 100% 100%, 0 100%,
+    0 calc(50% + 20px),
+    calc(-12px) calc(50% + 20px),
+    calc(-12px) calc(50% + 8px),
+    calc(-20px) calc(50% + 8px),
+    calc(-20px) calc(50% - 8px),
+    calc(-12px) calc(50% - 8px),
+    calc(-12px) calc(50% - 20px),
+    0 calc(50% - 20px)
+  );
+}
+
+@media (max-width: 1000px) {
+  .puzzle-tab-right,
+  .puzzle-tab-left {
+    clip-path: none;
+  }
 }
 
 .project-card:hover {

@@ -1,12 +1,14 @@
 import Reveal from './Reveal';
 import { courses } from '../data';
 
-const RADIUS = 38; // percent distance from center
+const RADIUS_X = 42; // percent — horizontal reach (wider = more oval)
+const RADIUS_Y = 30; // percent — vertical reach (smaller = flatter)
+const CENTER_Y = 62; // percent — pushes the whole diagram down, cloud lower, courses higher
 
 function getPosition(index, total) {
   const angle = (index / total) * Math.PI * 2 - Math.PI / 2;
-  const x = 50 + RADIUS * Math.cos(angle);
-  const y = 50 + RADIUS * Math.sin(angle);
+  const x = 50 + RADIUS_X * Math.cos(angle);
+  const y = CENTER_Y + RADIUS_Y * Math.sin(angle);
   return { x, y };
 }
 
@@ -27,7 +29,7 @@ export default function Courses() {
               <line
                 key={course}
                 x1="50"
-                y1="50"
+                y1={CENTER_Y}
                 x2={x}
                 y2={y}
                 className="courses-connector-line"
@@ -36,10 +38,18 @@ export default function Courses() {
           })}
         </svg>
 
-        <div className="course-cloud-wrap">
+        <div
+          className="course-cloud-wrap"
+          style={{ left: '50%', top: `${CENTER_Y}%` }}
+        >
           <Reveal as="div" delay={0.1} className="course-cloud">
-            <svg viewBox="0 0 200 130" className="course-cloud-svg" aria-hidden="true">
-              <path d="M45,95 a30,30 0 0,1 -5,-59 a35,35 0 0,1 68,-14 a30,30 0 0,1 40,32 a26,26 0 0,1 -8,51 z" />
+            <svg viewBox="0 0 200 120" className="course-cloud-svg" aria-hidden="true">
+              <path d="M40,90
+                       a24,24 0 0,1 0,-48
+                       a30,30 0 0,1 58,-14
+                       a26,26 0 0,1 50,10
+                       a22,22 0 0,1 12,52
+                       z" />
             </svg>
             <span className="course-cloud-label">CS</span>
           </Reveal>
@@ -54,7 +64,6 @@ export default function Courses() {
               key={course}
             >
               <Reveal as="div" delay={0.15 + index * 0.05} className="course-bubble">
-                <span className="course-bubble-index">{String(index + 1).padStart(2, '0')}</span>
                 <span className="course-bubble-text">{course}</span>
               </Reveal>
             </div>
@@ -66,7 +75,6 @@ export default function Courses() {
       <div className="courses-grid">
         {courses.map((course, index) => (
           <Reveal as="div" delay={index * 0.05} key={course} className="course-card" y={18}>
-            <span className="course-index">{String(index + 1).padStart(2, '0')}</span>
             <h3>{course}</h3>
           </Reveal>
         ))}

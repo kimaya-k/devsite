@@ -6,7 +6,7 @@ export default function Volunteering() {
     <section id="volunteering" className="section">
       <Reveal className="section-head">
         <h2>Leadership and Volunteering</h2>
-        <p>I've been involving myself in a lot of things.</p>
+        <p>I've been involved in a lot of things.</p>
       </Reveal>
 
       <div className="involvement-list">

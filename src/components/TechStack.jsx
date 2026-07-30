@@ -45,7 +45,7 @@ export default function TechStack() {
     <section id="tech-stack" className="section tech-section">
       <Reveal className="section-head">
         <h2>My Tech Stack</h2>
-        <p>I'm always trying to stack on new things.</p>
+        <p>Stacking tech till I reach Stack Overflow.</p>
       </Reveal>
 
       <div className="tech-groups">

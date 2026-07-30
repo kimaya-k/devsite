@@ -87,6 +87,7 @@ export const projects = [
     date: '2026',
     description:
       'A multi-hop architecture pipeline that audits home-visit patient notes using LangGraph-based multi-agent workflows and LLM note verification to improve acute-change evaluation across patient visits and identify clinical inconsistencies',
+    stack: ['LangGraph', 'Azure DevOps', 'LucidChart'],
     link: null,
   },
   {
@@ -95,7 +96,7 @@ export const projects = [
     date: '2026',
     description:
       'A multi-agent system that automates insurance member support using specialized agents to handle member inquiries, ROI authorization, and claim summarization to cut repeat calls and response delays',
-    stack: ['Google Cloud ADK', 'BigQuery', 'Tailwind CSS'],
+    stack: ['GADK', 'BigQuery', 'Tailwind CSS'],
     link: null,
   },
   {
@@ -104,7 +105,7 @@ export const projects = [
     date: '2026',
     description:
       'A custom shell built from scratch, including pipes, I/O redirection, background processes, subshells, signal handling, and wildcard globbing, as well as a hand-written line editor supporting history and tab completion.',
-      stack: ['C++', 'Flex', 'Bison'],
+      stack: ['C++', 'Flex & Bison', 'fork()'],
     link: null,
   },
   {
@@ -113,7 +114,7 @@ export const projects = [
     date: '2025',
     description:
       'A full-stack nutrition guide and health app with a menstrual cycle tracker, scraping Purdue Dining data and routing it through Groq AI for real-time cycle-tailored recommendations.',
-    stack: ['React', 'Node.js', 'Groq AI', 'RapidAPI'],
+    stack: ['React', 'Groq AI', 'Node.js', 'RapidAPI'],
     link: ['https://devpost.com/software/flowfuel', 'https://github.com/Ys876/FlowFuel'],
   },
   {
@@ -122,7 +123,7 @@ export const projects = [
     date: '2026',
     description:
       'A malloc implementation using segregated free lists, boundary-tag coalescing, and block splitting, built on sbrk memory aquisition and pthread mutex synchronization with runtime corruption detection.',
-      stack: ['C', 'pthreads'],
+      stack: ['malloc', 'pthreads', 'coalescing'],
     link: null,
   },
   {
@@ -131,7 +132,7 @@ export const projects = [
     date: '2023 — 2024',
     description:
       'An image classifier built on Inception_v3 neural network, studying epoch count and batch size trade off against accuracy and training time, deployed as a Flask app on AWS EC2 instance',
-       stack: ['Python', 'Flask', 'Docker', 'AWS EC2'],
+       stack: ['Inception_v3', 'Flask', 'AWS EC2'],
     link: ['https://colab.research.google.com/drive/1nSO0wWjsRw-fjkQPa_M1Yy3tC8rXYmpA', 'https://github.com/kimaya-k/Car_Image_Classifier'],
   },
    {
@@ -140,7 +141,7 @@ export const projects = [
     date: '2023',
     description:
     'A full-stack recipe management platform for small food businesses featuring authentication, recipe search, ingredient and cost scaling, seasonal recommendations, and YouTube integration, built with Spring Boot, Thymeleaf front-end, and Derby database.',
-    stack: ['Model-View Controller', 'Springboot Java', 'Thymeleaf', 'mySQL Workbench', 'Derby', 'Apache NetBeans'],
+    stack: ['MVC', 'Springboot', 'Thymeleaf', 'mySQL', 'Derby', 'Apache NetBeans'],
     link: ['https://github.com/kimaya-k/Recipe_Manager'],
   },
   {

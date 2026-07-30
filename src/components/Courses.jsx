@@ -6,7 +6,7 @@ export default function Courses() {
     <section id="courses" className="section">
       <Reveal className="section-head">
         <h2>Coursework</h2>
-        <p>Head in the clouds, feet in the algo books.</p>
+        <p>Head in the clouds, fingers at the keyboard.</p>
       </Reveal>
 
       <div className="courses-grid">

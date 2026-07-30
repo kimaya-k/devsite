@@ -30,10 +30,7 @@ function ProjectCard({ project, index }) {
         onMouseLeave={handleLeave}
         data-cursor-hover
       >
-        <div className="project-card-top">
-          <span className="project-card-emoji" aria-hidden="true">{project.emoji}</span>
-          <span className="project-tag">{project.tag}</span>
-        </div>
+        <span className="project-card-emoji" aria-hidden="true">{project.emoji}</span>
 
         <h3>{project.name}</h3>
         <p className="project-desc">{project.description}</p>
@@ -48,7 +45,11 @@ function ProjectCard({ project, index }) {
           )}
 
           <div className="project-card-foot">
-            <span className="timeline-date">{project.date}</span>
+            <div className="project-card-meta">
+              <span className="project-tag-small">{project.tag}</span>
+              <span className="project-card-date">{project.date}</span>
+            </div>
+
             {project.links?.length > 0 && (
               <div className="project-links">
                 {project.links.map((link) => (
@@ -77,8 +78,8 @@ export default function Projects() {
   return (
     <section id="projects" className="section">
       <Reveal className="section-head">
-        <span className="eyebrow">Projects</span>
-        <h2>Things I've shipped and broken on purpose.</h2>
+        <h2 className="section-heading-accent">Projects</h2>
+        <p>Things I've shipped and broken on purpose.</p>
       </Reveal>
 
       <div className="project-grid">

@@ -7,7 +7,7 @@ import AudioRing from './AudioRing';
 import { useSong } from '../audio/useSong';
 import { heroPhrases, heroBio } from '../data';
 
-const HIGHLIGHT_WORDS = ['CS', 'software', 'applications', 'AI', 'healthcare', 'education', 'community', 'world', 'impact', 'developing', 'Humana', 'CATME'];
+const HIGHLIGHT_WORDS = ['CS', 'software', 'applications', 'AI', 'healthcare', 'education', 'community', 'world', 'impact', 'developing', 'Humana', 'CATME', 'Purdue'];
 const HIGHLIGHT_PATTERN = new RegExp(`\\b(${HIGHLIGHT_WORDS.join('|')})\\b`, 'g');
 
 function renderHighlightedBio(text) {

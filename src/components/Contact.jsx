@@ -5,9 +5,9 @@ export default function Contact() {
   return (
     <>
       <section id="contact" className="section contact">
-        <Reveal className="eyebrow">// contact</Reveal>
         <Reveal delay={0.1}>
-          <h2>Let's build something that matters.</h2>
+          <h2>Reach Out! (No CAPTCHA Required)</h2>
+          <p>I promise my inbox has lower latency than my code.</p>
         </Reveal>
         <Reveal delay={0.2}>
           <a className="contact-email" href={`mailto:${profile.email}`}>

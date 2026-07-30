@@ -5,8 +5,8 @@ export default function Courses() {
   return (
     <section id="courses" className="section">
       <Reveal className="section-head">
-        <span className="eyebrow">// courses</span>
-        <h2>What I've studied.</h2>
+        <h2>Coursework</h2>
+        <p>Head in the clouds, feet in the algo books.</p>
       </Reveal>
 
       <div className="courses-grid">

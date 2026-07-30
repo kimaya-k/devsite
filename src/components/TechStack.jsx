@@ -44,9 +44,8 @@ export default function TechStack() {
   return (
     <section id="tech-stack" className="section tech-section">
       <Reveal className="section-head">
-        <span className="eyebrow">// tech stack</span>
-        <h2>What I reach for.</h2>
-        <p>Systems programming down to agent orchestration — the full stack, both ways.</p>
+        <h2>My Tech Stack</h2>
+        <p>I'm always trying to stack on new things.</p>
       </Reveal>
 
       <div className="tech-groups">

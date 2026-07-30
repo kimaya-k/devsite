@@ -114,7 +114,7 @@ export const projects = [
     description:
       'A full-stack nutrition guide and health app with a menstrual cycle tracker, scraping Purdue Dining data and routing it through Groq AI for real-time cycle-tailored recommendations.',
     stack: ['React', 'Node.js', 'Groq AI', 'RapidAPI'],
-    link: 'https://devpost.com/software/flowfuel', 'https://github.com/Ys876/FlowFuel',
+    link: ['https://devpost.com/software/flowfuel', 'https://github.com/Ys876/FlowFuel'],
   },
   {
     name: 'Dynamic Memory Allocator',
@@ -132,7 +132,7 @@ export const projects = [
     description:
       'An image classifier built on Inception_v3 neural network, studying epoch count and batch size trade off against accuracy and training time, deployed as a Flask app on AWS EC2 instance',
        stack: ['Python', 'Flask', 'Docker', 'AWS EC2'],
-    link: 'https://colab.research.google.com/drive/1nSO0wWjsRw-fjkQPa_M1Yy3tC8rXYmpA', 'https://github.com/kimaya-k/Car_Image_Classifier',
+    link: ['https://colab.research.google.com/drive/1nSO0wWjsRw-fjkQPa_M1Yy3tC8rXYmpA', 'https://github.com/kimaya-k/Car_Image_Classifier'],
   },
    {
     name: 'Recipe Management Software',
@@ -141,7 +141,7 @@ export const projects = [
     description:
     'A full-stack recipe management platform for small food businesses featuring authentication, recipe search, ingredient and cost scaling, seasonal recommendations, and YouTube integration, built with Spring Boot, Thymeleaf front-end, and Derby database.',
     stack: ['Model-View Controller', 'Springboot Java', 'Thymeleaf', 'mySQL Workbench', 'Derby', 'Apache NetBeans'],
-    link: 'https://github.com/kimaya-k/Recipe_Manager',
+    link: ['https://github.com/kimaya-k/Recipe_Manager'],
   },
   {
     name: 'Chat Messaging Platform',
@@ -150,7 +150,7 @@ export const projects = [
     description:
     'A multi-user chat system with real-time messaging, friend and block management, user auth, and profile customization',
     stack: ['Java', 'Sockets', 'Swing'],
-    link: 'https://github.com/mattcling/Cs-180-Team-Project',
+    link: ['https://github.com/mattcling/Cs-180-Team-Project'],
   },
 ];
 

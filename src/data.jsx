@@ -82,6 +82,7 @@ export const experience = [
 
 export const projects = [
     {
+    emoji: '👩🏽‍⚕️',
     name: 'Clinical Decision Support Pipeline',
     tag: 'Humana Intern Project',
     date: '2026',
@@ -91,6 +92,7 @@ export const projects = [
     link: null,
   },
   {
+    emoji: '🏆',
     name: 'A.C.T',
     tag: '2nd Place — Humana Hackathon',
     date: '2026',
@@ -100,6 +102,7 @@ export const projects = [
     link: null,
   },
   {
+    emoji: '🐚',
     name: 'UNIX Shell Interpreter',
     tag: 'Systems Programming',
     date: '2026',
@@ -109,6 +112,7 @@ export const projects = [
     link: null,
   },
   {
+    emoji: '🏆',
     name: 'FlowFuel',
     tag: '2nd Place — InnovateHer Hackathon',
     date: '2025',
@@ -118,6 +122,7 @@ export const projects = [
     link: ['https://devpost.com/software/flowfuel', 'https://github.com/Ys876/FlowFuel'],
   },
   {
+    emoji: '💾',
     name: 'Dynamic Memory Allocator',
     tag: 'Systems Programming',
     date: '2026',
@@ -127,6 +132,7 @@ export const projects = [
     link: null,
   },
   {
+    emoji: '🚗',
     name: 'Car Image Classifier',
     tag: 'Harvard Extension School — CSCI-S14A',
     date: '2023 — 2024',
@@ -136,6 +142,7 @@ export const projects = [
     link: ['https://colab.research.google.com/drive/1nSO0wWjsRw-fjkQPa_M1Yy3tC8rXYmpA', 'https://github.com/kimaya-k/Car_Image_Classifier'],
   },
    {
+    emoji: '🧑🏽‍🍳',
     name: 'Recipe Management Software',
     tag: 'CS IA Project',
     date: '2023',
@@ -145,11 +152,12 @@ export const projects = [
     link: ['https://github.com/kimaya-k/Recipe_Manager'],
   },
   {
+    emoji: '💭',
     name: 'Chat Messaging Platform',
     tag: 'CS180 Project',
     date: '2024',
     description:
-    'A multi-user chat system with real-time messaging, friend and block management, user auth, and profile customization',
+    'A multi-user chat system with real-time messaging, friend block management, user auth, and profile customization',
     stack: ['Java', 'Sockets', 'Swing'],
     link: ['https://github.com/mattcling/Cs-180-Team-Project'],
   },

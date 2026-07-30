@@ -3,6 +3,18 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Reveal from './Reveal';
 import { projects } from '../data';
 
+function labelForUrl(url) {
+  try {
+    const host = new URL(url).hostname.replace('www.', '');
+    if (host.includes('github')) return 'GitHub';
+    if (host.includes('devpost')) return 'Devpost';
+    if (host.includes('colab.research.google')) return 'Colab';
+    return host.split('.')[0];
+  } catch {
+    return 'Link';
+  }
+}
+
 function ProjectCard({ project, index }) {
   const ref = useRef(null);
   const x = useMotionValue(0);
@@ -20,6 +32,8 @@ function ProjectCard({ project, index }) {
     y.set(0);
   };
 
+  const links = Array.isArray(project.link) ? project.link : [];
+
   return (
     <Reveal as="div" delay={index * 0.05} className="project-card-wrap">
       <motion.div
@@ -36,6 +50,31 @@ function ProjectCard({ project, index }) {
         <p className="project-desc">{project.description}</p>
 
         <div className="project-card-bottom">
+          <div className="project-card-foot">
+            <div className="project-card-meta">
+              <span className="project-tag-small">{project.tag}</span>
+              <span className="project-card-date">{project.date}</span>
+            </div>
+
+            {links.length > 0 && (
+              <div className="project-links">
+                {links.map((url) => (
+                  <a
+                    key={url}
+                    href={url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="project-link"
+                    data-cursor-hover
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {labelForUrl(url)}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+
           {project.stack?.length > 0 && (
             <div className="project-stack">
               {project.stack.map((tech) => (
@@ -43,31 +82,6 @@ function ProjectCard({ project, index }) {
               ))}
             </div>
           )}
-
-          <div className="project-card-foot">
-            <div className="project-card-meta">
-              <span className="project-tag-small">{project.tag}</span>
-              <span className="project-card-date">{project.date}</span>
-            </div>
-
-            {project.links?.length > 0 && (
-              <div className="project-links">
-                {project.links.map((link) => (
-                  <a
-                    key={link.url}
-                    href={link.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="project-link"
-                    data-cursor-hover
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
         </div>
       </motion.div>
     </Reveal>

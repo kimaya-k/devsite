@@ -3,7 +3,7 @@ import { courses } from '../data';
 
 const RADIUS_X = 42; // percent — horizontal reach (wider = more oval)
 const RADIUS_Y = 30; // percent — vertical reach (smaller = flatter)
-const CENTER_Y = 42; // percent — pushes the whole diagram down, cloud lower, courses higher
+const CENTER_Y = 40; // percent — pushes the whole diagram down, cloud lower, courses higher
 
 function getPosition(index, total) {
   const angle = (index / total) * Math.PI * 2 - Math.PI / 2;

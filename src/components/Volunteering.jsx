@@ -5,7 +5,7 @@ export default function Volunteering() {
   return (
     <section id="volunteering" className="section">
       <Reveal className="section-head">
-        <h2>Leadership and Volunteering</h2>
+         <h2 className="section-heading-accent">Leadership and Volunteering</h2>
         <p>I've been involved in a lot of things.</p>
       </Reveal>
 

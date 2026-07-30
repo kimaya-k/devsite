@@ -5,7 +5,7 @@ export default function Courses() {
   return (
     <section id="courses" className="section">
       <Reveal className="section-head">
-        <h2>Coursework</h2>
+        <h2 className="section-heading-accent">Coursework</h2>
         <p>Head in the clouds, fingers at the keyboard.</p>
       </Reveal>
 

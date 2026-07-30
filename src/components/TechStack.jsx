@@ -3,16 +3,19 @@ import Reveal from './Reveal';
 import { skills } from '../data';
 
 const DEVICON = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons';
+const SIMPLE_ICONS = 'https://cdn.simpleicons.org';
 
-// Only map tools that have a reliable devicon asset — everything else
-// gracefully falls back to a plain text chip (see TechIcon below).
+// Devicon-backed icons (official language/tool logos)
 const ICON_SLUG = {
   C: 'c/c-original',
   'C++': 'cplusplus/cplusplus-original',
   Python: 'python/python-original',
   Java: 'java/java-original',
   JavaScript: 'javascript/javascript-original',
+  HTML: 'html5/html5-original',
+  CSS: 'css3/css3-original',
   Bash: 'bash/bash-original',
+  Perl: 'perl/perl-original',
   React: 'react/react-original',
   'Node.js': 'nodejs/nodejs-original',
   FastAPI: 'fastapi/fastapi-original',
@@ -24,9 +27,24 @@ const ICON_SLUG = {
   'Azure DevOps': 'azure/azure-original',
 };
 
+// Simple Icons-backed icons (brand logos Devicon doesn't have)
+const SIMPLE_ICON_SLUG = {
+  DuckDB: 'duckdb',
+  Databricks: 'databricks',
+  Postman: 'postman',
+  Zendesk: 'zendesk',
+};
+
 function TechIcon({ name }) {
-  const slug = ICON_SLUG[name];
-  const [failed, setFailed] = useState(!slug);
+  const deviconSlug = ICON_SLUG[name];
+  const simpleSlug = SIMPLE_ICON_SLUG[name];
+  const src = deviconSlug
+    ? `${DEVICON}/${deviconSlug}.svg`
+    : simpleSlug
+    ? `${SIMPLE_ICONS}/${simpleSlug}`
+    : null;
+
+  const [failed, setFailed] = useState(!src);
 
   if (failed) {
     return <span className="tech-chip tech-chip-text">{name}</span>;
@@ -34,7 +52,7 @@ function TechIcon({ name }) {
 
   return (
     <span className="tech-chip" data-cursor-hover>
-      <img src={`${DEVICON}/${slug}.svg`} alt="" loading="lazy" onError={() => setFailed(true)} />
+      <img src={src} alt="" loading="lazy" onError={() => setFailed(true)} />
       <span>{name}</span>
     </span>
   );

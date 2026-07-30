@@ -15,6 +15,9 @@
   mix-blend-mode: difference;
   color: #fff;
   pointer-events: none;
+  background: rgba(10, 10, 10, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .nav a,

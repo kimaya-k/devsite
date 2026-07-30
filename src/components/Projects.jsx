@@ -21,7 +21,7 @@ function ProjectCard({ project, index }) {
   };
 
   return (
-    <Reveal as="div" delay={index * 0.06} className="project-card-wrap">
+    <Reveal as="div" delay={index * 0.05} className="project-card-wrap">
       <motion.div
         ref={ref}
         className="project-card"
@@ -30,14 +30,8 @@ function ProjectCard({ project, index }) {
         onMouseLeave={handleLeave}
         data-cursor-hover
       >
-        {project.image && (
-          <div className="project-card-image">
-            <img src={`${import.meta.env.BASE_URL}${project.image.replace(/^\//, '')}`} alt="" />
-          </div>
-        )}
-
         <div className="project-card-top">
-          <span className="project-card-index">{String(index + 1).padStart(2, '0')}</span>
+          <span className="project-card-emoji" aria-hidden="true">{project.emoji}</span>
           <span className="project-tag">{project.tag}</span>
         </div>
 
@@ -45,12 +39,34 @@ function ProjectCard({ project, index }) {
         <p className="project-desc">{project.description}</p>
 
         <div className="project-card-bottom">
-          <div className="project-stack">
-            {project.stack.map((tech) => (
-              <span className="tag" key={tech}>{tech}</span>
-            ))}
+          {project.stack?.length > 0 && (
+            <div className="project-stack">
+              {project.stack.map((tech) => (
+                <span className="tag" key={tech}>{tech}</span>
+              ))}
+            </div>
+          )}
+
+          <div className="project-card-foot">
+            <span className="timeline-date">{project.date}</span>
+            {project.links?.length > 0 && (
+              <div className="project-links">
+                {project.links.map((link) => (
+                  
+                    key={link.url}
+                    href={link.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="project-link"
+                    data-cursor-hover
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
-          <span className="timeline-date">{project.date}</span>
         </div>
       </motion.div>
     </Reveal>
@@ -61,7 +77,8 @@ export default function Projects() {
   return (
     <section id="projects" className="section">
       <Reveal className="section-head">
-        <h2 className="projects-heading">Projects</h2>
+        <span className="eyebrow">Projects</span>
+        <h2>Things I've shipped and broken on purpose.</h2>
       </Reveal>
 
       <div className="project-grid">

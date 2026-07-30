@@ -11,10 +11,20 @@ export default function Volunteering() {
 
       <div className="involvement-list">
         {involvement.map((item, index) => (
-          <Reveal as="div" delay={index * 0.06} key={item.role} className="involvement-item">
-            <h3>{item.role}</h3>
-            <span className="involvement-org">{item.org} · {item.date}</span>
-            <p>{item.note}</p>
+          <Reveal as="div" delay={index * 0.06} key={item.role} className="involvement-row-wrap">
+            <div className="involvement-row">
+              <div className="involvement-heading">
+                <span className="involvement-index">{String(index + 1).padStart(2, '0')}</span>
+                <div>
+                  <h3>{item.role}</h3>
+                  <span className="involvement-org">{item.org}</span>
+                </div>
+              </div>
+              <p className="involvement-desc">{item.note}</p>
+              <div className="involvement-meta">
+                <span className="timeline-date">{item.date}</span>
+              </div>
+            </div>
           </Reveal>
         ))}
       </div>

@@ -1055,6 +1055,8 @@
   padding: 2.2rem 0;
   border-top: 1px solid var(--line);
   align-items: start;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .involvement-list .involvement-row-wrap:last-child .involvement-row {

@@ -13,7 +13,7 @@ export const profile = {
 export const stats = [
   { value: '2027', label: 'Grad Year — Purdue CS' },
   { value: '5', label: 'Internships & Research Roles' },
-  { value: '2×', label: 'Hackathon Podium Finishes' },
+  { value: '2x', label: 'Hackathon Podium Finishes' },
 ];
 
 export const heroPhrases = [

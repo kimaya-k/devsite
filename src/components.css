@@ -903,27 +903,6 @@
   gap: 1rem;
 }
 
-.project-grid-puzzle {
-  gap: 0;
-}
-
-.project-card-wrap {
-  position: relative;
-  min-height: 300px;
-}
-
-.project-card {
-  position: absolute;
-  inset: -12.5%;
-  padding: 1.9rem 1.7rem;
-}
-
-.project-card:hover {
-  border-color: var(--signal);
-  box-shadow: none;
-  filter: drop-shadow(0 14px 30px rgba(124, 58, 237, 0.4));
-}
-
 .project-card {
   height: 100%;
   min-height: 300px;

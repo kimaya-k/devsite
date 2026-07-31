@@ -167,11 +167,7 @@ export default function Contact() {
 
       <footer className="footer">
         <span>{profile.name} · {profile.location}</span>
-        <div className="footer-links">
-          <a href={profile.github} target="_blank" rel="noreferrer">GitHub</a>
-          <a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-          <a href={`mailto:${profile.email}`}>Email</a>
-        </div>
+        <span> Devsite 2026 © All Rights Reserved </span>
       </footer>
     </>
   );

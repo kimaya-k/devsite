@@ -17,6 +17,32 @@
   pointer-events: none;
 }
 
+@media (max-width: 640px) {
+  .nav-links {
+    gap: 1.1rem;
+  }
+  .nav {
+    padding: 1.1rem 1.4rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .nav-links {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+    min-width: 0;
+    flex-shrink: 1;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    mask-image: linear-gradient(to right, transparent 0, black 12px, black calc(100% - 12px), transparent 100%);
+  }
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .nav-scrolled {
   mix-blend-mode: normal;
   background: rgba(18, 17, 16, 0.85);

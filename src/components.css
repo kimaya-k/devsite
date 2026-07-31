@@ -1146,100 +1146,156 @@
   color: var(--ink-soft);
 }
 
-.contact-grid {
-  margin-top: 3rem;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  text-align: left;
-  max-width: 780px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.contact-card {
+.orbit-stage {
   position: relative;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.2rem 1.3rem;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(6px);
-  text-decoration: none;
-  color: var(--ink);
-  overflow: hidden;
-  transition: border-color 0.25s ease;
+  width: min(500px, 88vw);
+  height: min(500px, 88vw);
+  margin: 3.5rem auto 1rem;
 }
 
-.contact-card:hover {
-  border-color: var(--signal);
+.orbit-track-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.contact-card-glyph {
-  flex-shrink: 0;
-  width: 42px;
-  height: 42px;
-  border-radius: 9px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--mono);
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--signal);
-  background: rgba(167, 139, 250, 0.12);
-  border: 1px solid rgba(167, 139, 250, 0.3);
+.orbit-track-circle {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 1;
+  stroke-dasharray: 3 8;
 }
 
-.contact-card-body {
+.orbit-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
-  min-width: 0;
+  align-items: center;
+  gap: 0.6rem;
+  z-index: 2;
 }
 
-.contact-card-label {
+.orbit-center-pulse {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--signal);
+  box-shadow: 0 0 0 0 rgba(167, 139, 250, 0.55);
+  animation: orbit-pulse 2.4s ease-out infinite;
+}
+
+@keyframes orbit-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(167, 139, 250, 0.55); }
+  70% { box-shadow: 0 0 0 26px rgba(167, 139, 250, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(167, 139, 250, 0); }
+}
+
+.orbit-center-label {
   font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.06em;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-faint);
 }
 
-.contact-card-value {
-  font-size: 0.98rem;
-  font-weight: 600;
+.orbit-ring {
+  position: absolute;
+  inset: 0;
+  animation: orbit-spin 50s linear infinite;
+}
+
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.orbit-slot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -34px;
+  margin-left: -34px;
+}
+
+.orbit-counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  animation: orbit-spin-reverse 50s linear infinite;
+}
+
+@keyframes orbit-spin-reverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+.orbit-item {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line-strong);
+  color: var(--signal);
+  text-decoration: none;
+  backdrop-filter: blur(6px);
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.orbit-item:hover {
+  border-color: var(--signal);
+  background: rgba(167, 139, 250, 0.14);
+}
+
+.orbit-item-glyph {
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.orbit-item-caption {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  color: var(--ink-faint);
+  white-space: nowrap;
+  max-width: 130px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-.contact-card-action {
-  margin-left: auto;
-  flex-shrink: 0;
+.contact-hint {
+  margin-top: 1rem;
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.74rem;
   color: var(--ink-faint);
-  opacity: 0;
-  transform: translateX(-4px);
-  transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
 }
 
-.contact-card:hover .contact-card-action {
-  opacity: 1;
-  transform: translateX(0);
-  color: var(--signal);
+@media (prefers-reduced-motion: reduce) {
+  .orbit-ring,
+  .orbit-counter {
+    animation: none;
+  }
 }
 
 @media (max-width: 640px) {
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
-  .contact-card-action {
+  .orbit-stage {
     display: none;
   }
+
+  .orbit-fallback {
+    display: flex;
+  }
+}
+
+.orbit-fallback {
+  display: none;
 }
 
 .footer {

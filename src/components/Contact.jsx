@@ -12,21 +12,21 @@ const CONTACT_LINKS = [
     glyph: 'in',
   },
   {
-    label: 'GitHub — Personal',
+    label: 'GitHub (personal)',
     value: '@kimaya-k',
     href: profile.github,
     kind: 'link',
     glyph: '{ }',
   },
   {
-    label: 'GitHub — Purdue',
+    label: 'GitHub (Purdue)',
     value: '@deshpank',
     href: profile.purdueGithub,
     kind: 'link',
     glyph: '{ }',
   },
   {
-    label: 'Email — Personal',
+    label: 'Personal email',
     value: profile.personalEmail,
     href: `mailto:${profile.personalEmail}`,
     kind: 'copy',
@@ -34,7 +34,7 @@ const CONTACT_LINKS = [
     glyph: '@',
   },
   {
-    label: 'Email — Purdue',
+    label: 'Purdue email',
     value: profile.email,
     href: `mailto:${profile.email}`,
     kind: 'copy',
@@ -43,8 +43,9 @@ const CONTACT_LINKS = [
   },
 ];
 
-function ContactCard({ item, index }) {
+function OrbitItem({ item, angle, total }) {
   const [copied, setCopied] = useState(false);
+  const radius = total > 4 ? 210 : 190;
 
   const handleClick = async (e) => {
     if (item.kind !== 'copy') return;
@@ -59,31 +60,34 @@ function ContactCard({ item, index }) {
   };
 
   return (
-    <Reveal as="div" delay={index * 0.06} y={20}>
-      <motion.a
-        href={item.href}
-        target={item.kind === 'link' ? '_blank' : undefined}
-        rel={item.kind === 'link' ? 'noreferrer' : undefined}
-        onClick={handleClick}
-        className="contact-card"
-        data-cursor-hover
-        whileHover={{ y: -4 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-      >
-        <span className="contact-card-glyph" aria-hidden="true">{item.glyph}</span>
-        <span className="contact-card-body">
-          <span className="contact-card-label">{item.label}</span>
-          <span className="contact-card-value">{item.value}</span>
+    <div
+      className="orbit-slot"
+      style={{ transform: `rotate(${angle}deg) translate(${radius}px) rotate(${-angle}deg)` }}
+    >
+      <div className="orbit-counter">
+        <motion.a
+          href={item.href}
+          target={item.kind === 'link' ? '_blank' : undefined}
+          rel={item.kind === 'link' ? 'noreferrer' : undefined}
+          onClick={handleClick}
+          className="orbit-item"
+          data-cursor-hover
+          whileHover={{ scale: 1.18 }}
+          transition={{ type: 'spring', stiffness: 320, damping: 16 }}
+        >
+          <span className="orbit-item-glyph">{item.glyph}</span>
+        </motion.a>
+        <span className="orbit-item-caption">
+          {copied ? 'copied ✓' : item.value}
         </span>
-        <span className="contact-card-action">
-          {item.kind === 'copy' ? (copied ? 'copied ✓' : 'click to copy') : 'visit ↗'}
-        </span>
-      </motion.a>
-    </Reveal>
+      </div>
+    </div>
   );
 }
 
 export default function Contact() {
+  const total = CONTACT_LINKS.length;
+
   return (
     <>
       <section id="contact" className="section contact">
@@ -92,11 +96,29 @@ export default function Contact() {
           <p className="contact-byline">I promise my inbox has lower latency than my code.</p>
         </Reveal>
 
-        <div className="contact-grid">
-          {CONTACT_LINKS.map((item, index) => (
-            <ContactCard item={item} index={index} key={item.label} />
-          ))}
-        </div>
+        <Reveal delay={0.2} className="orbit-stage">
+          <svg className="orbit-track-svg" viewBox="0 0 500 500">
+            <circle cx="250" cy="250" r="205" className="orbit-track-circle" />
+          </svg>
+
+          <div className="orbit-center">
+            <span className="orbit-center-pulse" />
+            <span className="orbit-center-label">say hi</span>
+          </div>
+
+          <div className="orbit-ring">
+            {CONTACT_LINKS.map((item, i) => (
+              <OrbitItem
+                item={item}
+                angle={(360 / total) * i}
+                total={total}
+                key={item.label}
+              />
+            ))}
+          </div>
+        </Reveal>
+
+        <p className="contact-hint">click a GitHub or LinkedIn to visit · click an email to copy it</p>
       </section>
 
       <footer className="footer">

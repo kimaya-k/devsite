@@ -1,7 +1,27 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Reveal from './Reveal';
 import { involvement } from '../data';
+
+function InvolvementMark({ mark }) {
+  const [failed, setFailed] = useState(false);
+  if (failed || !mark) {
+    return (
+      <span className="involvement-mark" style={{ '--mark-color': mark?.color }}>
+        {mark?.text ?? '—'}
+      </span>
+    );
+  }
+  return (
+    <span className="involvement-mark involvement-mark-logo">
+      <img
+        src={`${import.meta.env.BASE_URL}${mark.logo}`}
+        alt=""
+        onError={() => setFailed(true)}
+      />
+    </span>
+  );
+}
 
 function InvolvementRow({ item, index }) {
   const ref = useRef(null);
@@ -31,6 +51,7 @@ function InvolvementRow({ item, index }) {
         data-cursor-hover
       >
         <div className="involvement-heading">
+          <InvolvementMark mark={item.mark} />
           <div>
             <h3>{item.role}</h3>
             <span className="involvement-org">{item.org}</span>

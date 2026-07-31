@@ -3,57 +3,59 @@ import { motion } from 'framer-motion';
 import Reveal from './Reveal';
 import { profile } from '../data';
 
-const STEPS = [
-  { type: 'command', text: 'whoami' },
-  { type: 'output', text: `${profile.name} — CS @ Purdue, building AI systems for healthcare & privacy.` },
-  { type: 'command', text: 'open --linkedin' },
-  { type: 'link', label: 'linkedin.com/in/kimaya-deshpande', href: profile.linkedin },
-  { type: 'command', text: 'open --github personal' },
-  { type: 'link', label: 'github.com/kimaya-k', href: profile.github },
-  { type: 'command', text: 'open --github purdue' },
-  { type: 'link', label: 'github.com/deshpank', href: profile.purdueGithub },
-  { type: 'command', text: 'echo $EMAIL_PERSONAL' },
-  { type: 'copy', label: profile.personalEmail, value: profile.personalEmail },
-  { type: 'command', text: 'echo $EMAIL_PURDUE' },
-  { type: 'copy', label: profile.email, value: profile.email },
+const COMMAND = 'cat contact';
+
+const ENTRIES = [
+  { perms: 'lrwxrwxrwx', name: 'linkedin', kind: 'link', href: profile.linkedin },
+  { perms: 'lrwxrwxrwx', name: 'github-personal', kind: 'link', href: profile.github },
+  { perms: 'lrwxrwxrwx', name: 'github-purdue', kind: 'link', href: profile.purdueGithub },
+  { perms: '-rw-r--r--', name: 'email-personal', kind: 'copy', value: profile.personalEmail },
+  { perms: '-rw-r--r--', name: 'email-purdue', kind: 'copy', value: profile.email },
 ];
 
-function CopyLine({ label, value }) {
+function EntryRow({ entry, index }) {
   const [copied, setCopied] = useState(false);
 
-  const handleClick = async () => {
+  const handleClick = async (e) => {
+    if (entry.kind !== 'copy') return;
+    e.preventDefault();
     try {
-      await navigator.clipboard.writeText(value);
+      await navigator.clipboard.writeText(entry.value);
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
     } catch {
-      window.location.href = `mailto:${value}`;
+      window.location.href = `mailto:${entry.value}`;
     }
   };
 
-  return (
-    <button type="button" className="term-line term-resolved" onClick={handleClick} data-cursor-hover>
-      <span className="term-arrow">→</span> {label}
-      <span className="term-hint">{copied ? 'copied ✓' : 'click to copy'}</span>
-    </button>
-  );
-}
+  const Tag = entry.kind === 'link' ? 'a' : 'button';
+  const extraProps =
+    entry.kind === 'link'
+      ? { href: entry.href, target: '_blank', rel: 'noreferrer' }
+      : { type: 'button', onClick: handleClick };
 
-function LinkLine({ label, href }) {
   return (
-    <a href={href} target="_blank" rel="noreferrer" className="term-line term-resolved" data-cursor-hover>
-      <span className="term-arrow">→</span> {label}
-      <span className="term-hint">visit ↗</span>
-    </a>
+    <motion.div
+      initial={{ opacity: 0, x: -6 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.28, delay: index * 0.08 }}
+    >
+      <Tag className="term-ls-row" data-cursor-hover {...extraProps}>
+        <span className="term-ls-perms">{entry.perms}</span>
+        <span className="term-ls-name">{entry.name}</span>
+        <span className="term-ls-hint">
+          {entry.kind === 'link' ? 'visit ↗' : copied ? 'copied ✓' : 'click to copy'}
+        </span>
+      </Tag>
+    </motion.div>
   );
 }
 
 export default function Contact() {
   const stageRef = useRef(null);
   const [started, setStarted] = useState(false);
-  const [stepIndex, setStepIndex] = useState(0);
   const [typedChars, setTypedChars] = useState(0);
-  const [done, setDone] = useState(false);
+  const [showEntries, setShowEntries] = useState(false);
 
   useEffect(() => {
     const el = stageRef.current;
@@ -72,29 +74,14 @@ export default function Contact() {
   }, []);
 
   useEffect(() => {
-    if (!started || done) return;
-    if (stepIndex >= STEPS.length) {
-      setDone(true);
-      return;
-    }
-
-    const step = STEPS[stepIndex];
-
-    if (step.type === 'command') {
-      if (typedChars < step.text.length) {
-        const t = setTimeout(() => setTypedChars((c) => c + 1), 26);
-        return () => clearTimeout(t);
-      }
-      const t = setTimeout(() => {
-        setStepIndex((i) => i + 1);
-        setTypedChars(0);
-      }, 260);
+    if (!started) return;
+    if (typedChars < COMMAND.length) {
+      const t = setTimeout(() => setTypedChars((c) => c + 1), 45);
       return () => clearTimeout(t);
     }
-
-    const t = setTimeout(() => setStepIndex((i) => i + 1), 340);
+    const t = setTimeout(() => setShowEntries(true), 300);
     return () => clearTimeout(t);
-  }, [started, stepIndex, typedChars, done]);
+  }, [started, typedChars]);
 
   return (
     <>
@@ -113,52 +100,19 @@ export default function Contact() {
           </div>
 
           <div className="term-body" ref={stageRef}>
-            {STEPS.map((step, i) => {
-              if (i > stepIndex) return null;
-              const isCurrent = i === stepIndex && !done;
+            <div className="term-line term-command">
+              <span className="term-prompt">$</span> {COMMAND.slice(0, typedChars)}
+              {!showEntries && <span className="term-cursor" />}
+            </div>
 
-              if (step.type === 'command') {
-                const text = isCurrent ? step.text.slice(0, typedChars) : step.text;
-                return (
-                  <div className="term-line term-command" key={i}>
-                    <span className="term-prompt">$</span> {text}
-                    {isCurrent && <span className="term-cursor" />}
-                  </div>
-                );
-              }
-
-              if (step.type === 'output') {
-                return (
-                  <motion.div
-                    className="term-line term-output"
-                    key={i}
-                    initial={{ opacity: 0, y: 4 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {step.text}
-                  </motion.div>
-                );
-              }
-
-              if (step.type === 'link') {
-                return (
-                  <motion.div key={i} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-                    <LinkLine label={step.label} href={step.href} />
-                  </motion.div>
-                );
-              }
-
-              return (
-                <motion.div key={i} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-                  <CopyLine label={step.label} value={step.value} />
-                </motion.div>
-              );
-            })}
-
-            {done && (
-              <div className="term-line term-command">
-                <span className="term-prompt">$</span> <span className="term-cursor" />
+            {showEntries && (
+              <div className="term-ls-block">
+                {ENTRIES.map((entry, i) => (
+                  <EntryRow entry={entry} index={i} key={entry.name} />
+                ))}
+                <div className="term-line term-command term-final">
+                  <span className="term-prompt">$</span> <span className="term-cursor" />
+                </div>
               </div>
             )}
           </div>
@@ -167,7 +121,7 @@ export default function Contact() {
 
       <footer className="footer">
         <span>{profile.name} · {profile.location}</span>
-        <span> Devsite 2026 © All Rights Reserved </span>
+        <span className="footer-rights">Devsite 2026 © All Rights Reserved</span>
       </footer>
     </>
   );

@@ -1151,11 +1151,11 @@
   max-width: 620px;
   text-align: left;
   border-radius: 10px;
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--signal);
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(8px);
   overflow: hidden;
-  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.15), 0 30px 70px -30px rgba(124, 58, 237, 0.35);
 }
 
 .term-titlebar {
@@ -1189,7 +1189,7 @@
   font-family: var(--mono);
   font-size: 0.88rem;
   line-height: 1.9;
-  min-height: 280px;
+  min-height: 260px;
 }
 
 .term-line {
@@ -1203,11 +1203,6 @@
 
 .term-command {
   color: var(--ink);
-}
-
-.term-output {
-  color: var(--ink-soft);
-  padding-left: 1.1rem;
 }
 
 .term-cursor {
@@ -1224,17 +1219,20 @@
   50% { opacity: 0; }
 }
 
-.term-resolved {
+.term-ls-block {
+  margin-top: 0.4rem;
+}
+
+.term-ls-row {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.9rem;
   width: 100%;
-  padding-left: 1.1rem;
-  margin: 0;
+  padding: 0.15rem 0;
   border: none;
   background: none;
   font-family: var(--mono);
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   color: var(--ink-soft);
   text-decoration: none;
   text-align: left;
@@ -1242,15 +1240,20 @@
   transition: color 0.2s ease;
 }
 
-.term-arrow {
+.term-ls-perms {
+  color: var(--ink-faint);
+  flex-shrink: 0;
+}
+
+.term-ls-name {
+  color: var(--ink);
+}
+
+.term-ls-row:hover .term-ls-name {
   color: var(--signal);
 }
 
-.term-resolved:hover {
-  color: var(--signal);
-}
-
-.term-hint {
+.term-ls-hint {
   margin-left: auto;
   font-size: 0.72rem;
   color: var(--ink-faint);
@@ -1259,9 +1262,13 @@
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.term-resolved:hover .term-hint {
+.term-ls-row:hover .term-ls-hint {
   opacity: 1;
   transform: translateX(0);
+}
+
+.term-final {
+  margin-top: 0.5rem;
 }
 
 @media (max-width: 640px) {
@@ -1269,7 +1276,10 @@
     padding: 1.1rem 1rem 1.3rem;
     font-size: 0.8rem;
   }
-  .term-hint {
+  .term-ls-perms {
+    display: none;
+  }
+  .term-ls-hint {
     display: none;
   }
 }

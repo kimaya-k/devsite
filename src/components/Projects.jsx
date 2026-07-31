@@ -53,19 +53,20 @@ function buildPuzzlePath(edges) {
 }
 
 // Track the actual rendered column count, matching the CSS grid breakpoints
-function useColumns() {
-  const [cols, setCols] = useState(4);
+function useColumns(gridRef) {
+  const [cols, setCols] = useState(1);
   useEffect(() => {
+    if (!gridRef.current) return;
     function update() {
-      const w = window.innerWidth;
-      if (w <= 560) setCols(1);
-      else if (w <= 1000) setCols(2);
-      else setCols(4);
+      const template = getComputedStyle(gridRef.current).gridTemplateColumns;
+      const count = template.split(' ').filter(Boolean).length;
+      setCols(count || 1);
     }
     update();
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
-  }, []);
+    const ro = new ResizeObserver(update);
+    ro.observe(gridRef.current);
+    return () => ro.disconnect();
+  }, [gridRef]);
   return cols;
 }
 
@@ -180,22 +181,7 @@ function ProjectCard({ project, index, cols, rows, plain }) {
   );
 }
 
-function useColumns(gridRef) {
-  const [cols, setCols] = useState(1);
-  useEffect(() => {
-    if (!gridRef.current) return;
-    function update() {
-      const template = getComputedStyle(gridRef.current).gridTemplateColumns;
-      const count = template.split(' ').filter(Boolean).length;
-      setCols(count || 1);
-    }
-    update();
-    const ro = new ResizeObserver(update);
-    ro.observe(gridRef.current);
-    return () => ro.disconnect();
-  }, [gridRef]);
-  return cols;
-}
+
 
 export default function Projects() {
   const gridRef = useRef(null);

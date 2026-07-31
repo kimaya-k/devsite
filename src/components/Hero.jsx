@@ -63,6 +63,10 @@ export default function Hero() {
           {isPlaying ? 'Stop' : 'Play my_song.js'}
         </button>
 
+        <p className="ring-play-note">
+          ♪ On phone? Turn off Silent Mode to hear the music.
+        </p>
+
         <motion.p
           className="hero-bio"
           initial={{ opacity: 0, y: 16 }}
@@ -70,6 +74,7 @@ export default function Hero() {
           transition={{ duration: 0.7, ease: 'easeOut', delay: 0.5 }}
         >
           {renderHighlightedBio(heroBio)}
+
         </motion.p>
 
         <motion.div

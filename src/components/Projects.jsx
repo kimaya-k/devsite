@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Reveal from './Reveal';
 import { projects } from '../data';
@@ -52,15 +52,29 @@ function buildPuzzlePath(edges) {
   ].join(' ');
 }
 
-const COLS = 4;
-const ROWS = Math.ceil(projects.length / COLS);
+// Track the actual rendered column count, matching the CSS grid breakpoints
+function useColumns() {
+  const [cols, setCols] = useState(4);
+  useEffect(() => {
+    function update() {
+      const w = window.innerWidth;
+      if (w <= 560) setCols(1);
+      else if (w <= 1000) setCols(2);
+      else setCols(4);
+    }
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+  return cols;
+}
 
-function computeEdges(r, c) {
+function computeEdges(r, c, cols, rows) {
   const edges = { top: 'flat', right: 'flat', bottom: 'flat', left: 'flat' };
   if (c > 0) edges.left = (r + c - 1) % 2 === 0 ? 'blank' : 'tab';
-  if (c < COLS - 1) edges.right = (r + c) % 2 === 0 ? 'tab' : 'blank';
+  if (c < cols - 1) edges.right = (r + c) % 2 === 0 ? 'tab' : 'blank';
   if (r > 0) edges.top = c % 2 === 0 ? 'blank' : 'tab';
-  if (r < ROWS - 1) edges.bottom = c % 2 === 0 ? 'tab' : 'blank';
+  if (r < rows - 1) edges.bottom = c % 2 === 0 ? 'tab' : 'blank';
   return edges;
 }
 
@@ -76,7 +90,7 @@ function labelForUrl(url) {
   }
 }
 
-function ProjectCard({ project, index }) {
+function ProjectCard({ project, index, cols, rows, plain }) {
   const ref = useRef(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -94,24 +108,26 @@ function ProjectCard({ project, index }) {
   };
 
   const links = Array.isArray(project.link) ? project.link : [];
-  const r = Math.floor(index / COLS);
-  const c = index % COLS;
+  const r = Math.floor(index / cols);
+  const c = index % cols;
   const clipId = `piece-clip-${index}`;
-  const clipUrl = `url(#${clipId})`;
+  const clipUrl = plain ? undefined : `url(#${clipId})`;
 
   return (
     <div className="project-card-wrap">
       <div
         className="project-card-shape"
-        style={{ clipPath: clipUrl, WebkitClipPath: clipUrl }}
+        style={plain ? undefined : { clipPath: clipUrl, WebkitClipPath: clipUrl }}
       >
-        <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true">
-          <defs>
-            <clipPath id={clipId} clipPathUnits="objectBoundingBox">
-              <path d={buildPuzzlePath(computeEdges(r, c))} />
-            </clipPath>
-          </defs>
-        </svg>
+        {!plain && (
+          <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true">
+            <defs>
+              <clipPath id={clipId} clipPathUnits="objectBoundingBox">
+                <path d={buildPuzzlePath(computeEdges(r, c, cols, rows))} />
+              </clipPath>
+            </defs>
+          </svg>
+        )}
 
         <Reveal as="div" delay={index * 0.05} className="project-card-reveal">
           <motion.div
@@ -165,6 +181,10 @@ function ProjectCard({ project, index }) {
 }
 
 export default function Projects() {
+  const cols = useColumns();
+  const rows = Math.ceil(projects.length / cols);
+  const plain = cols === 1;
+
   return (
     <section id="projects" className="section">
       <Reveal className="section-head">
@@ -172,9 +192,9 @@ export default function Projects() {
         <p>Projects to project my success.</p>
       </Reveal>
 
-      <div className="project-grid project-grid-puzzle">
+      <div className={`project-grid project-grid-puzzle ${plain ? 'project-grid-plain' : ''}`}>
         {projects.map((project, index) => (
-          <ProjectCard project={project} index={index} key={project.name} />
+          <ProjectCard project={project} index={index} cols={cols} rows={rows} plain={plain} key={project.name} />
         ))}
       </div>
     </section>

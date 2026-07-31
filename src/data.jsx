@@ -168,7 +168,7 @@ export const projects = [
 export const skills = [
   {
     label: 'Languages',
-    items: ['C', 'C++', 'Python', 'Java', 'JavaScript', 'SQL', 'HTML', 'CSS', 'Bash', 'Perl', 'Assembly (LEGv8, x86-64)'],
+    items: ['Python', 'Java', 'C', 'C++', 'JavaScript', 'SQL', 'HTML', 'CSS', 'Bash', 'Perl', 'Assembly (LEGv8, x86-64)'],
   },
   {
     label: 'AI & Agents',
@@ -214,7 +214,7 @@ export const courses = [
 ];
 
 export const techStack = [
-  'C', 'C++', 'Python', 'Java', 'JavaScript', 'SQL', 'Bash', 'Perl',
+  'Python', 'Java', 'C', 'C++', 'JavaScript', 'SQL', 'Bash', 'Perl',
   'React', 'Node.js', 'FastAPI', 'Flask', 'LangGraph', 'n8n',
   'Docker', 'Git', 'Azure DevOps', 'DuckDB', 'Databricks', 'Pandas',
 ];

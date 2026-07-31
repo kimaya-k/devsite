@@ -7,10 +7,10 @@ const SIMPLE_ICONS = 'https://cdn.simpleicons.org';
 
 // Devicon-backed icons (official language/tool logos)
 const ICON_SLUG = {
-  C: 'c/c-original',
-  'C++': 'cplusplus/cplusplus-original',
   Python: 'python/python-original',
   Java: 'java/java-original',
+  C: 'c/c-original',
+  'C++': 'cplusplus/cplusplus-original',
   JavaScript: 'javascript/javascript-original',
   HTML: 'html5/html5-original',
   CSS: 'css3/css3-original',

@@ -1,92 +1,100 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import Reveal from './Reveal';
 import { profile } from '../data';
 
-const CONTACT_LINKS = [
-  {
-    label: 'LinkedIn',
-    value: 'kimaya-deshpande',
-    href: profile.linkedin,
-    kind: 'link',
-    glyph: 'in',
-  },
-  {
-    label: 'GitHub (personal)',
-    value: '@kimaya-k',
-    href: profile.github,
-    kind: 'link',
-    glyph: '{ }',
-  },
-  {
-    label: 'GitHub (Purdue)',
-    value: '@deshpank',
-    href: profile.purdueGithub,
-    kind: 'link',
-    glyph: '{ }',
-  },
-  {
-    label: 'Personal email',
-    value: profile.personalEmail,
-    href: `mailto:${profile.personalEmail}`,
-    kind: 'copy',
-    copyText: profile.personalEmail,
-    glyph: '@',
-  },
-  {
-    label: 'Purdue email',
-    value: profile.email,
-    href: `mailto:${profile.email}`,
-    kind: 'copy',
-    copyText: profile.email,
-    glyph: '@',
-  },
+const STEPS = [
+  { type: 'command', text: 'whoami' },
+  { type: 'output', text: `${profile.name} — CS @ Purdue, building AI systems for healthcare & privacy.` },
+  { type: 'command', text: 'open --linkedin' },
+  { type: 'link', label: 'linkedin.com/in/kimaya-deshpande', href: profile.linkedin },
+  { type: 'command', text: 'open --github personal' },
+  { type: 'link', label: 'github.com/kimaya-k', href: profile.github },
+  { type: 'command', text: 'open --github purdue' },
+  { type: 'link', label: 'github.com/deshpank', href: profile.purdueGithub },
+  { type: 'command', text: 'echo $EMAIL_PERSONAL' },
+  { type: 'copy', label: profile.personalEmail, value: profile.personalEmail },
+  { type: 'command', text: 'echo $EMAIL_PURDUE' },
+  { type: 'copy', label: profile.email, value: profile.email },
 ];
 
-function OrbitItem({ item, angle, total }) {
+function CopyLine({ label, value }) {
   const [copied, setCopied] = useState(false);
-  const radius = total > 4 ? 210 : 190;
 
-  const handleClick = async (e) => {
-    if (item.kind !== 'copy') return;
-    e.preventDefault();
+  const handleClick = async () => {
     try {
-      await navigator.clipboard.writeText(item.copyText);
+      await navigator.clipboard.writeText(value);
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
     } catch {
-      window.location.href = item.href;
+      window.location.href = `mailto:${value}`;
     }
   };
 
   return (
-    <div
-      className="orbit-slot"
-      style={{ transform: `rotate(${angle}deg) translate(${radius}px) rotate(${-angle}deg)` }}
-    >
-      <div className="orbit-counter">
-        <motion.a
-          href={item.href}
-          target={item.kind === 'link' ? '_blank' : undefined}
-          rel={item.kind === 'link' ? 'noreferrer' : undefined}
-          onClick={handleClick}
-          className="orbit-item"
-          data-cursor-hover
-          whileHover={{ scale: 1.18 }}
-          transition={{ type: 'spring', stiffness: 320, damping: 16 }}
-        >
-          <span className="orbit-item-glyph">{item.glyph}</span>
-        </motion.a>
-        <span className="orbit-item-caption">
-          {copied ? 'copied ✓' : item.value}
-        </span>
-      </div>
-    </div>
+    <button type="button" className="term-line term-resolved" onClick={handleClick} data-cursor-hover>
+      <span className="term-arrow">→</span> {label}
+      <span className="term-hint">{copied ? 'copied ✓' : 'click to copy'}</span>
+    </button>
+  );
+}
+
+function LinkLine({ label, href }) {
+  return (
+    <a href={href} target="_blank" rel="noreferrer" className="term-line term-resolved" data-cursor-hover>
+      <span className="term-arrow">→</span> {label}
+      <span className="term-hint">visit ↗</span>
+    </a>
   );
 }
 
 export default function Contact() {
-  const total = CONTACT_LINKS.length;
+  const stageRef = useRef(null);
+  const [started, setStarted] = useState(false);
+  const [stepIndex, setStepIndex] = useState(0);
+  const [typedChars, setTypedChars] = useState(0);
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    const el = stageRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setStarted(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.35 },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!started || done) return;
+    if (stepIndex >= STEPS.length) {
+      setDone(true);
+      return;
+    }
+
+    const step = STEPS[stepIndex];
+
+    if (step.type === 'command') {
+      if (typedChars < step.text.length) {
+        const t = setTimeout(() => setTypedChars((c) => c + 1), 26);
+        return () => clearTimeout(t);
+      }
+      const t = setTimeout(() => {
+        setStepIndex((i) => i + 1);
+        setTypedChars(0);
+      }, 260);
+      return () => clearTimeout(t);
+    }
+
+    const t = setTimeout(() => setStepIndex((i) => i + 1), 340);
+    return () => clearTimeout(t);
+  }, [started, stepIndex, typedChars, done]);
 
   return (
     <>
@@ -96,29 +104,65 @@ export default function Contact() {
           <p className="contact-byline">I promise my inbox has lower latency than my code.</p>
         </Reveal>
 
-        <Reveal delay={0.2} className="orbit-stage">
-          <svg className="orbit-track-svg" viewBox="0 0 500 500">
-            <circle cx="250" cy="250" r="205" className="orbit-track-circle" />
-          </svg>
-
-          <div className="orbit-center">
-            <span className="orbit-center-pulse" />
-            <span className="orbit-center-label">say hi</span>
+        <Reveal delay={0.15} className="term-window" y={24}>
+          <div className="term-titlebar">
+            <span className="term-dot term-dot-red" />
+            <span className="term-dot term-dot-yellow" />
+            <span className="term-dot term-dot-green" />
+            <span className="term-titlebar-label">kimaya@portfolio: ~/contact</span>
           </div>
 
-          <div className="orbit-ring">
-            {CONTACT_LINKS.map((item, i) => (
-              <OrbitItem
-                item={item}
-                angle={(360 / total) * i}
-                total={total}
-                key={item.label}
-              />
-            ))}
+          <div className="term-body" ref={stageRef}>
+            {STEPS.map((step, i) => {
+              if (i > stepIndex) return null;
+              const isCurrent = i === stepIndex && !done;
+
+              if (step.type === 'command') {
+                const text = isCurrent ? step.text.slice(0, typedChars) : step.text;
+                return (
+                  <div className="term-line term-command" key={i}>
+                    <span className="term-prompt">$</span> {text}
+                    {isCurrent && <span className="term-cursor" />}
+                  </div>
+                );
+              }
+
+              if (step.type === 'output') {
+                return (
+                  <motion.div
+                    className="term-line term-output"
+                    key={i}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {step.text}
+                  </motion.div>
+                );
+              }
+
+              if (step.type === 'link') {
+                return (
+                  <motion.div key={i} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+                    <LinkLine label={step.label} href={step.href} />
+                  </motion.div>
+                );
+              }
+
+              return (
+                <motion.div key={i} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+                  <CopyLine label={step.label} value={step.value} />
+                </motion.div>
+              );
+            })}
+
+            {done && (
+              <div className="term-line term-command">
+                <span className="term-prompt">$</span> <span className="term-cursor" />
+              </div>
+            )}
           </div>
         </Reveal>
-
-        <p className="contact-hint">click a GitHub or LinkedIn to visit · click an email to copy it</p>
       </section>
 
       <footer className="footer">

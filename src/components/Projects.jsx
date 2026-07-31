@@ -33,13 +33,12 @@ function ProjectCard({ project, index }) {
   };
 
   const links = Array.isArray(project.link) ? project.link : [];
-  const puzzleClass = index % 2 === 0 ? 'puzzle-tab-right' : 'puzzle-tab-left';
 
   return (
     <Reveal as="div" delay={index * 0.05} className="project-card-wrap">
       <motion.div
         ref={ref}
-        className={`project-card ${puzzleClass}`}
+        className="project-card"
         style={{ rotateX, rotateY, transformPerspective: 900 }}
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}

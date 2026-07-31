@@ -924,24 +924,6 @@
   filter: drop-shadow(0 14px 30px rgba(124, 58, 237, 0.4));
 }
 
-/* Puzzle fit only works for this exact 4-column layout — revert to
-   plain cards once the grid reflows to fewer columns */
-@media (max-width: 1000px) {
-  .project-grid-puzzle {
-    gap: 1rem;
-  }
-  .project-card-wrap {
-    min-height: auto;
-  }
-  .project-card {
-    position: static;
-    inset: auto;
-    clip-path: none !important;
-    border-radius: 10px;
-    padding: 1.5rem 1.3rem;
-  }
-}
-
 .project-card {
   height: 100%;
   min-height: 300px;

@@ -1,4 +1,4 @@
-# Kimaya Deshpande — Portfolio
+# Kimaya Deshpande Portfolio
 
 Built with React + Vite + Framer Motion.
 

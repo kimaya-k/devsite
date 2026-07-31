@@ -1,5 +1,28 @@
+import { useState } from 'react';
 import Reveal from './Reveal';
 import { involvement } from '../data';
+
+function InvolvementMark({ mark }) {
+  const [failed, setFailed] = useState(false);
+
+  if (failed || !mark) {
+    return (
+      <span className="involvement-mark" style={{ '--mark-color': mark?.color }}>
+        {mark?.text ?? '—'}
+      </span>
+    );
+  }
+
+  return (
+    <span className="involvement-mark involvement-mark-logo">
+      <img
+        src={`${import.meta.env.BASE_URL}${mark.logo}`}
+        alt=""
+        onError={() => setFailed(true)}
+      />
+    </span>
+  );
+}
 
 export default function Volunteering() {
   return (
@@ -14,7 +37,7 @@ export default function Volunteering() {
           <Reveal as="div" delay={index * 0.06} key={item.role} className="involvement-row-wrap">
             <div className="involvement-row">
               <div className="involvement-heading">
-                <span className="involvement-index">{String(index + 1).padStart(2, '0')}</span>
+                <InvolvementMark mark={item.mark} />
                 <div>
                   <h3>{item.role}</h3>
                   <span className="involvement-org">{item.org}</span>

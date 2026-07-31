@@ -17,7 +17,7 @@ export default function Courses() {
     <section id="courses" className="section">
       <Reveal className="section-head">
         <h2 className="section-heading-accent">Coursework</h2>
-        <p>Head in the clouds, fingers at the keyboard.</p>
+        <p>My courses of action.</p>
       </Reveal>
 
       {/* Flowchart — desktop */}

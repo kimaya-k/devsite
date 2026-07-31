@@ -871,9 +871,23 @@
 }
 
 .project-grid {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
+}
+
+.project-grid::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  left: 10%;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.35), transparent 70%);
+  filter: blur(60px);
+  z-index: -1;
+  pointer-events: none;
 }
 
 .project-card {
@@ -883,7 +897,8 @@
   padding: 1.5rem 1.3rem;
   border: 1px solid var(--line);
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.021);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px) saturate(140%);
   backdrop-filter: blur(6px);
   display: flex;
   flex-direction: column;
@@ -1065,12 +1080,32 @@
   gap: 0.9rem;
 }
 
-.involvement-index {
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  color: var(--signal);
-  padding-top: 0.35rem;
+.involvement-mark {
   flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--mark-color, var(--signal));
+  overflow: hidden;
+}
+
+.involvement-mark-logo {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  padding: 6px;
+}
+
+.involvement-mark-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .involvement-heading h3 {
@@ -1338,7 +1373,7 @@
   height: 100%;
   fill: var(--signal);
   opacity: 0.85;
-  filter: drop-shadow(0 0 24px rgba(167, 139, 250, 0.55)) drop-shadow(0 0 46px rgba(167, 139, 250, 0.3));
+  filter: drop-shadow(0 0 24px rgba(167, 139, 250, 0.75)) drop-shadow(0 0 46px rgba(167, 139, 250, 0.3));
 }
 
 .course-cloud-label {

@@ -186,18 +186,21 @@ export const involvement = [
   {
     role: 'Jandos Scholar & WISP Mentor',
     org: 'Women in Science Program, Purdue',
+    mark: { text: 'W', color: '#6b3fa0', logo: 'logos/wisp.jpg' },
     date: 'Aug 2026 — Present',
     note: 'Awarded for academic achievement and community engagement, mentoring STEM students on technical and professional development as they transition into computer science education.',
   },
   {
     role: 'Project Mentor',
     org: 'Purdue LaunchPad',
+    mark: { text: 'LP', color: '#3d6b4f', logo: 'logos/launchpad.jpg' },
     date: 'Aug 2025 — Dec 2025',
     note: 'Mentored a student building an AI-powered app for AIME math problems using GSM8K and LoRA fine-tuning, covering environment setup, model training, and performance optimization',
   },
   {
     role: 'Representative',
     org: 'Purdue Science Student Council',
+    mark: { text: 'PSSC', color: '#7a5230', logo: 'logos/pssc.jpg' },
     date: 'Mar 2025 — Dec 2025',
     note: "Organized community outreachincluding Science Sunday for children and card-making for retirement homes to promote STEM education in the Greater Lafayette community.",
   },

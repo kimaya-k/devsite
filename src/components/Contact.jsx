@@ -7,8 +7,8 @@ const COMMAND = 'cat contact';
 
 const ENTRIES = [
   { perms: 'lrwxrwxrwx', name: 'linkedin', kind: 'link', href: profile.linkedin },
+  { perms: 'lrwxrwxrwx', name: 'github-main', kind: 'link', href: profile.purdueGithub },
   { perms: 'lrwxrwxrwx', name: 'github-personal', kind: 'link', href: profile.github },
-  { perms: 'lrwxrwxrwx', name: 'github-purdue', kind: 'link', href: profile.purdueGithub },
   { perms: '-rw-r--r--', name: 'email-personal', kind: 'copy', value: profile.personalEmail },
   { perms: '-rw-r--r--', name: 'email-purdue', kind: 'copy', value: profile.email },
 ];
@@ -121,7 +121,7 @@ export default function Contact() {
 
       <footer className="footer">
         <span>{profile.name} · {profile.location}</span>
-        <span className="footer-rights">Devsite 2026 © All Rights Reserved</span>
+        <span className="footer-rights">Kimaya's Portfolio 2026 © All Rights Reserved</span>
       </footer>
     </>
   );

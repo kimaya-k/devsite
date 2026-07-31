@@ -1228,18 +1228,20 @@
   align-items: center;
   gap: 0.9rem;
   width: 100%;
+  margin: 0;
   padding: 0.15rem 0;
   border: none;
   background: none;
+  appearance: none;
   font-family: var(--mono);
   font-size: 0.85rem;
+  line-height: 1.9;
   color: var(--ink-soft);
   text-decoration: none;
   text-align: left;
   cursor: pointer;
   transition: color 0.2s ease;
 }
-
 .term-ls-perms {
   color: var(--ink-faint);
   flex-shrink: 0;
@@ -1282,6 +1284,21 @@
   .term-ls-hint {
     display: none;
   }
+}
+
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1080px;
+  margin: 0 auto;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  color: var(--ink-faint);
+  flex-wrap: wrap;
+  gap: 0.8rem;
 }
 
 /* ===== Scroll progress bar ===== */

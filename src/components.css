@@ -920,6 +920,7 @@ section[id] {
   border: 1px solid var(--line);
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px) saturate(140%);
   backdrop-filter: blur(6px);
   display: flex;
   flex-direction: column;
@@ -927,82 +928,6 @@ section[id] {
   transform-style: preserve-3d;
   will-change: transform;
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
-  padding-top: 1.9rem;
-  padding-bottom: 1.9rem;
-  mask-image:
-    radial-gradient(circle 7px at 16px 0, transparent 7px, black 7.5px),
-    radial-gradient(circle 7px at 48px 0, transparent 7px, black 7.5px),
-    radial-gradient(circle 7px at 80px 0, transparent 7px, black 7.5px),
-    radial-gradient(circle 7px at 16px 100%, transparent 7px, black 7.5px),
-    radial-gradient(circle 7px at 48px 100%, transparent 7px, black 7.5px),
-    radial-gradient(circle 7px at 80px 100%, transparent 7px, black 7.5px),
-    linear-gradient(black, black);
-  mask-size: 100% 100%;
-  mask-repeat: no-repeat;
-  mask-composite: intersect;
-  -webkit-mask-image:
-    radial-gradient(circle 7px at 16px 0, transparent 7px, black 7.5px),
-    radial-gradient(circle 7px at 48px 0, transparent 7px, black 7.5px),
-    radial-gradient(circle 7px at 80px 0, transparent 7px, black 7.5px),
-    radial-gradient(circle 7px at 16px 100%, transparent 7px, black 7.5px),
-    radial-gradient(circle 7px at 48px 100%, transparent 7px, black 7.5px),
-    radial-gradient(circle 7px at 80px 100%, transparent 7px, black 7.5px),
-    linear-gradient(black, black);
-  -webkit-mask-composite: source-in;
-}
-
-.project-grid-puzzle {
-  gap: 0;
-}
-
-.project-card-wrap {
-  position: relative;
-  min-height: 300px;
-}
-
-.project-card-shape {
-  position: absolute;
-  inset: -12.5%;
-  transition: filter 0.25s ease;
-}
-
-.project-card-shape:hover {
-  filter: drop-shadow(0 14px 30px rgba(124, 58, 237, 0.4));
-}
-
-.project-card-reveal,
-.project-card {
-  width: 100%;
-  height: 100%;
-}
-
-.project-card {
-  padding: 1.9rem 1.7rem;
-  border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.04);
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-  box-sizing: border-box;
-}
-
-.project-card:hover {
-  border-color: var(--signal);
-}
-
-.project-grid-plain {
-  gap: 1rem;
-}
-.project-grid-plain .project-card-wrap {
-  min-height: auto;
-}
-.project-grid-plain .project-card-shape {
-  position: static;
-  inset: auto;
-  filter: none !important;
-}
-.project-grid-plain .project-card {
-  border-radius: 10px;
 }
 
 .project-card:hover {
@@ -1113,6 +1038,45 @@ section[id] {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+
+/* ===== Skills ===== */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.6rem 3rem;
+}
+
+.skill-group h3 {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-style: normal;
+  margin-bottom: 1rem;
+}
+
+.skill-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip {
+  font-size: 0.88rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper-raised);
+}
+
+@media (max-width: 640px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 
 /* ===== Skills ===== */

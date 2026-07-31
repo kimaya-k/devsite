@@ -62,7 +62,7 @@ export default function TechStack() {
   return (
     <section id="tech-stack" className="section tech-section">
       <Reveal className="section-head">
-        <h2>My Tech Stack</h2>
+        <h2 className="section-heading-accent">My Tech Stack</h2>
         <p>Stacking tech till I hit Stack Overflow.</p>
       </Reveal>
 

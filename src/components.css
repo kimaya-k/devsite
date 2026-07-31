@@ -17,6 +17,10 @@
   pointer-events: none;
 }
 
+section[id] {
+  scroll-margin-top: 90px; /* match your nav's approx height */
+}
+
 @media (max-width: 760px) {
   .nav {
     flex-wrap: wrap;
@@ -1493,7 +1497,7 @@
   font-size: 0.76rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ink-faint);
+  color: #ffffff;
   margin-bottom: 1rem;
 }
 

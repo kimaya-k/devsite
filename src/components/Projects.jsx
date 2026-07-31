@@ -180,8 +180,26 @@ function ProjectCard({ project, index, cols, rows, plain }) {
   );
 }
 
+function useColumns(gridRef) {
+  const [cols, setCols] = useState(1);
+  useEffect(() => {
+    if (!gridRef.current) return;
+    function update() {
+      const template = getComputedStyle(gridRef.current).gridTemplateColumns;
+      const count = template.split(' ').filter(Boolean).length;
+      setCols(count || 1);
+    }
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(gridRef.current);
+    return () => ro.disconnect();
+  }, [gridRef]);
+  return cols;
+}
+
 export default function Projects() {
-  const cols = useColumns();
+  const gridRef = useRef(null);
+  const cols = useColumns(gridRef);
   const rows = Math.ceil(projects.length / cols);
   const plain = cols === 1;
 
@@ -192,7 +210,7 @@ export default function Projects() {
         <p>Projects to project my success.</p>
       </Reveal>
 
-      <div className={`project-grid project-grid-puzzle ${plain ? 'project-grid-plain' : ''}`}>
+      <div ref={gridRef} className={`project-grid project-grid-puzzle ${plain ? 'project-grid-plain' : ''}`}>
         {projects.map((project, index) => (
           <ProjectCard project={project} index={index} cols={cols} rows={rows} plain={plain} key={project.name} />
         ))}
